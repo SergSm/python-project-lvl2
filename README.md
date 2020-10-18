@@ -8,7 +8,8 @@
 
 ## Description
 The second Hexlet python developer project.
-Calculate difference between 2 files and show them
+
+Calculate any difference between 2 files and show them 
 
 ## Installation
 
