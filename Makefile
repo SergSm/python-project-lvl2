@@ -9,3 +9,8 @@ selfcheck:
 
 build:
 	poetry build
+
+gendiff:
+	poetry run gendiff
+
+.PHONY: gendiff
