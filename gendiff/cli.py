@@ -1,7 +1,7 @@
 import argparse
 
 
-def parse_arguments():
+def get_arguments():
     parser = argparse.ArgumentParser(description="Generate diff")
 
     # positional arguments
@@ -11,5 +11,6 @@ def parse_arguments():
     # optional arguments shor and long forms
     parser.add_argument('-f', '--format', help="set format of output")
 
-
     args = parser.parse_args()
+
+    return args

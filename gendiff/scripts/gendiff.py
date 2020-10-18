@@ -1,11 +1,11 @@
 '''Script to run gendiff.'''
 
-from gendiff.cli import parse_arguments
-
+from gendiff.cli import get_arguments
+from gendiff.main import generate_diff
 
 def main():
-    parse_arguments()
-    print('it works')
+    args = get_arguments()
+    generate_diff(args)
 
 
 if __name__ == "__main__":
