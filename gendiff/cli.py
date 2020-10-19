@@ -9,7 +9,11 @@ def get_arguments():
     parser.add_argument('second_file')
 
     # optional arguments shor and long forms
-    parser.add_argument('-f', '--format', help="set format of output")
+    parser.add_argument('-f',
+                        '--format',
+                        help="set format of output",
+                        #type=argparse.FileType()
+                        )
 
     args = parser.parse_args()
 

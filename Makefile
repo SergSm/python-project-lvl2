@@ -13,4 +13,7 @@ build:
 gendiff:
 	poetry run gendiff
 
-.PHONY: gendiff
+test:
+	poetry run gendiff ~/Projects/python-project-lvl2/gendiff/file1.json gendiff/file2.json
+
+.PHONY: gendiff test
