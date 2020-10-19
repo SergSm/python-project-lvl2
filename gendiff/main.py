@@ -16,7 +16,10 @@ def get_difference(dict1, dict2):
     print("shared_keys")  # DEBUG
     print(shared_keys)
 
-    new_keys = dict1_keys - dict2_keys
+    removed_keys = dict1_keys - dict2_keys
+    new_keys = dict2_keys - dict2_keys
+
+
     print("new_keys")
     print(new_keys)
 
