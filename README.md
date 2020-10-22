@@ -3,7 +3,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
 
 ### Hexlet tests and linter status:
-![Actions Status](/workflows/hexlet%2Dcheck/badge.svg)
+![Actions Status](https://github.com/SergSm/python-project-lvl2/workflows/hexlet%2Dcheck/badge.svg)
 ![Actions Status](https://github.com/SergSm/python-project-lvl2/workflows/Super%2DLinter/badge.svg)
 
 ## Description
