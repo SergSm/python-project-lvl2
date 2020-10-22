@@ -4,6 +4,7 @@
 
 ### Hexlet tests and linter status:
 ![Actions Status](/workflows/hexlet-check/badge.svg)
+![Actions Status](https://github.com/SergSm/python-project-lvl2/workflows/superlinter/badge.svg)
 
 ## Description
 The second Hexlet python developer project.
