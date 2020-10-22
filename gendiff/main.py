@@ -5,7 +5,6 @@ import json
 DEFAULT_FORMAT = 'json'
 
 
-# TODO
 def get_difference(dict1, dict2):
     '''Return the difference between 2 dicts'''
 
@@ -21,8 +20,7 @@ def get_difference(dict1, dict2):
     new_keys = dict2_keys - dict1_keys
 
     # {-} {+} or { }
-    unchanged = set()
-    changed = set()
+    unchanged, changed = set(), set()
     for key in shared_keys:
         if dict2[key] == dict1[key]:
             unchanged.add(key)
@@ -43,11 +41,11 @@ def get_difference(dict1, dict2):
     for key in changed:
         text_diff += f'\n - {key}: {dict1[key]}'
         text_diff += f'\n + {key}: {dict2[key]}'
-        
-    text_diff += f'\n'
-    text_diff += '}'
+
+    text_diff += '\n}'
 
     return text_diff  # DEBUG
+
 
 def get_comparison(first_file, second_file, format_type):
     if format_type == 'json':
@@ -59,6 +57,7 @@ def get_comparison(first_file, second_file, format_type):
         return ""
 
     return difference
+
 
 def generate_diff(args):
     '''the main function of the library'''
