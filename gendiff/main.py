@@ -1,23 +1,26 @@
-'''Main module to be called by external code.'''
+"""Main module to be called by external code."""
 
 import json
 
 DEFAULT_FORMAT = 'json'
 
+LINE_STATES = ('new', 'left', 'changed', 'unchanged')
+
 
 def get_difference(dict1, dict2):
-    '''Return the difference between 2 dicts'''
+    """Return the difference between 2 dicts"""
 
     dict1_keys = set(dict1.keys())
     dict2_keys = set(dict2.keys())
 
+
     shared_keys = dict1_keys.intersection(dict2_keys)
 
     # {-}
-    keys_left = dict1_keys - dict2_keys
+    keys_left = sorted(dict1_keys - dict2_keys)  # foreseeing the order change
 
     # {+}
-    new_keys = dict2_keys - dict1_keys
+    new_keys = sorted(dict2_keys - dict1_keys)
 
     # {-} {+} or { }
     unchanged, changed = set(), set()
@@ -26,6 +29,9 @@ def get_difference(dict1, dict2):
             unchanged.add(key)
         else:
             changed.add(key)
+
+    unchanged = sorted(unchanged)
+    changed = sorted(changed)
 
     # compose the text difference using sets and dictionaries created earlier
     text_diff = '{'
@@ -48,26 +54,25 @@ def get_difference(dict1, dict2):
 
 
 def get_comparison(first_file, second_file, format_type):
+
     if format_type == 'json':
         dict1 = json.load(open(first_file))
         dict2 = json.load(open(second_file))
 
         difference = get_difference(dict1, dict2)
     else:
-        return ""
+        return f'unknown format {format_type}'
 
     return difference
 
 
-def generate_diff(args):
-    '''the main function of the library'''
+def generate_diff(first_file, second_file, format_type = DEFAULT_FORMAT):
+    """the main function of the library"""
 
-    format_type = DEFAULT_FORMAT if not args.format else args.format
-
-    # TODO: absolute and relative pathes
-
-    comparison_result = get_comparison(args.first_file,
-                                       args.second_file,
+    comparison_result = get_comparison(first_file,
+                                       second_file,
                                        format_type)
+
     print(comparison_result)  # DEBUG
+
     return comparison_result
