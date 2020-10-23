@@ -14,6 +14,6 @@ gendiff:
 	poetry run gendiff
 
 test:
-	poetry run gendiff ~/Projects/python-project-lvl2/gendiff/file1.json gendiff/file2.json
+	poetry run pytest --cov=gendiff --cov-report xml tests/
 
 .PHONY: gendiff test
