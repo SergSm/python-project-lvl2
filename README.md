@@ -5,6 +5,7 @@
 ### Hexlet tests and linter status:
 ![Actions Status](https://github.com/SergSm/python-project-lvl2/workflows/hexlet%2Dcheck/badge.svg)
 ![Actions Status](https://github.com/SergSm/python-project-lvl2/workflows/flake8%2Dlint/badge.svg)
+![Actions Status](https://github.com/SergSm/python-project-lvl2/workflows/test/badge.svg)
 
 ## Description
 The second Hexlet python developer project.

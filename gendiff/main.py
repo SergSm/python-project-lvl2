@@ -13,7 +13,6 @@ def get_difference(dict1, dict2):
     dict1_keys = set(dict1.keys())
     dict2_keys = set(dict2.keys())
 
-
     shared_keys = dict1_keys.intersection(dict2_keys)
 
     # {-}
@@ -66,7 +65,7 @@ def get_comparison(first_file, second_file, format_type):
     return difference
 
 
-def generate_diff(first_file, second_file, format_type = DEFAULT_FORMAT):
+def generate_diff(first_file, second_file, format_type=DEFAULT_FORMAT):
     """the main function of the library"""
 
     comparison_result = get_comparison(first_file,
