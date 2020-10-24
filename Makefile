@@ -14,6 +14,6 @@ gendiff:
 	poetry run gendiff
 
 test:
-	poetry run pytest --cov=gendiff --cov-report xml tests/
+	poetry run pytest --junit-xml=./tests/report.xml
 
 .PHONY: gendiff test
