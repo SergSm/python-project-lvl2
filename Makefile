@@ -14,6 +14,6 @@ gendiff:
 	poetry run gendiff
 
 test:
-	poetry run pytest --junit-xml=./tests/report.xml
+	poetry run pytest --junit-xml=./tests/coverage.xml
 
 .PHONY: gendiff test
