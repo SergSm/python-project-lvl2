@@ -14,14 +14,11 @@ gendiff = "gendiff.scripts.gendiff:main"
 [tool.poetry.dependencies]
 python = "^3.6"
 argparse = "^1.4.0"
-pytest = "^6.1.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+pytest = "^6.1.1"
+coverage = {extras = ["toml"], version = "^5.3"}
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -29,3 +26,11 @@ addopts = "-ra -q"
 testpaths = [
     "tests",
 ]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.coverage.run]
+omit = [".*", "*/site-packages/*"]
