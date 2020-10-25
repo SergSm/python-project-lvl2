@@ -7,8 +7,6 @@ jobs:
   # Set the job key. The key is displayed as the job name
   # when a job name is not provided
   ci:
-    # Name the Job
-    name: build
     # Set the type of machine to run on
     runs-on: ubuntu-latest
     strategy:
@@ -41,5 +39,5 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
           DEFAULT_BRANCH: master
-        run: |
-          make coverage
+        with:
+          coverageCommand: poetry run coverage run -m pytest && poetry run coverage xml
