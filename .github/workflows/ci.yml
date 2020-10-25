@@ -35,6 +35,9 @@ jobs:
       - name: Run tests
         run: |
           make test
+      - name: Generate coverage report
+        run : |
+          poetry run coverage run -m pytest
       - name: Update test coverage on codeclimate
         uses: paambaati/codeclimate-action@v2.7.4
         env:
