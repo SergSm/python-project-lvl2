@@ -4,8 +4,6 @@ import json
 
 DEFAULT_FORMAT = 'json'
 
-LINE_STATES = ('new', 'left', 'changed', 'unchanged')
-
 
 def get_difference(dict1, dict2):
     """Return the difference between 2 dicts"""
@@ -67,6 +65,7 @@ def get_comparison(first_file, second_file, format_type):
 
 def generate_diff(first_file, second_file, format_type=DEFAULT_FORMAT):
     """the main function of the library"""
+
 
     comparison_result = get_comparison(first_file,
                                        second_file,
