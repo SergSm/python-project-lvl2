@@ -14,4 +14,4 @@ def get_file_object(filepath):
     if path.is_file():
         return open(filepath)
     else:
-        raise IOException(f'File doesn\'t exit at: {filepath}')
+        raise ValueError(f'File doesn\'t exit at: {filepath}')

@@ -15,7 +15,7 @@ def generate_diff(filepath1, filepath2, output_format):
     file_ext2 = get_file_extension(filepath2).upper()
 
     if not (file_ext1, file_ext2 in ACCEPTABLE_INPUT_FORMATS):
-        raise ValueError(f'Unknown format or file(s) has no extension(s)')
+        raise ValueError(f'Unknown format {file_ext1}, {file_ext2} or file(s) has no extension(s)')
 
     file1 = get_file_object(filepath1)
     file2 = get_file_object(filepath2)
@@ -23,10 +23,8 @@ def generate_diff(filepath1, filepath2, output_format):
     data1 = get_parsed_data(file1, output_format)
     data2 = get_parsed_data(file2, output_format)
 
-    # print(data1)  # DEBUG
-    # print(data2)  # DEBUG
-
     comparison_result = get_difference(data1, data2)
 
-    print(comparison_result)  # DEBUG2
+    print(comparison_result)  # DEBUG
+
     return comparison_result
