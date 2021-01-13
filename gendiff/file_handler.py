@@ -4,6 +4,7 @@ from pathlib import Path
 
 
 def get_file_extension(filepath):
+    """Returns file extension without dot"""
     return Path(filepath).suffix
 
 
