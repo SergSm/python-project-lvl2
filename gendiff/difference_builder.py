@@ -1,6 +1,10 @@
 def get_difference(dict1, dict2):
     """Return the difference between 2 dicts"""
 
+
+
+
+    # convert to set to have only unique values
     dict1_keys = set(dict1.keys())
     dict2_keys = set(dict2.keys())
 
@@ -23,21 +27,7 @@ def get_difference(dict1, dict2):
     unchanged = sorted(unchanged)
     changed = sorted(changed)
 
-    # compose the text difference using sets and dictionaries created earlier
-    text_diff = '{'
-    for key in keys_left:
-        text_diff += f'\n - {key}: {dict1[key]}'
+    #
+    if val1 != val2 and val2 has children
 
-    for key in new_keys:
-        text_diff += f'\n + {key}: {dict2[key]}'
-
-    for key in unchanged:
-        text_diff += f'\n   {key}: {dict1[key]}'
-
-    for key in changed:
-        text_diff += f'\n - {key}: {dict1[key]}'
-        text_diff += f'\n + {key}: {dict2[key]}'
-
-    text_diff += '\n}'
-
-    return text_diff  # DEBUG
+    return diff_tree  # DEBUG

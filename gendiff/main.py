@@ -3,13 +3,14 @@
 from gendiff.file_handler import get_file_extension, get_file_object
 from gendiff.parser import get_parsed_data
 from gendiff.difference_builder import get_difference
+from gendiff.formatters import get_formatted_string
 
 
 ACCEPTABLE_INPUT_EXTENSIONS = ('.JSON', '.YML', '.YAML')
 ACCEPTABLE_OUTPUT_FORMATTERS = ('stylish',)
 
 
-def generate_diff(filepath1, filepath2, output_format):
+def generate_diff(filepath1, filepath2, output_format="stylish"):
     """the main function of the library"""
 
     file_ext1 = get_file_extension(filepath1).upper()
@@ -26,12 +27,11 @@ def generate_diff(filepath1, filepath2, output_format):
     data2 = get_parsed_data(file2, file_ext2)
 
     # TODO: separate a diff building and rendering a result
-    comparison_result = get_difference(data1, data2)
+    comparison_result_data = get_difference(data1, data2)
 
-    # Console output
-    # diff_text_representatiuon = get_formatted_text(FROMATTER_ARG)
-    ###
+    comparison_result_string = get_formatted_string(comparison_result_data,
+                                                    output_format)
 
-    print(comparison_result)  # DEBUG
+    print(comparison_result_string)  # DEBUG
 
-    return comparison_result
+    return comparison_result_string
