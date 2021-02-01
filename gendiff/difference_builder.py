@@ -6,28 +6,22 @@ def build_dif(dict1, dict2):
     dict1_keys = set(dict1.keys())
     dict2_keys = set(dict2.keys())
 
-    shared_keys = sorted(dict1_keys.intersection(dict2_keys))
-    deleted_keys = sorted(dict1_keys - dict2_keys)  # {-}
-    new_keys = sorted(dict2_keys - dict1_keys)  # {+}
-
-    # handle deleted keys
-    for key in deleted_keys:
-        row = {'KEY': key,
-               'VALUE': dict1[key],
-               'STATE': 'DELETED'}
-        result.append(row)
-
-    # handle new keys
-    for key in new_keys:
-        row = {'KEY': key,
-               'VALUE': dict2[key],
-               'STATE': 'ADDED'}
-        result.append(row)
+    # union of all keys from both dictionaries
+    all_keys = sorted(set().union(dict1_keys, dict2_keys))
 
     # handle common keys
-    for key in shared_keys:
-
-        if dict1[key] == dict2[key]:
+    for key in all_keys:
+        # key uniqueness checks
+        if key not in list(dict1.keys()):  # new key
+            row = {'KEY': key,
+                   'VALUE': dict2[key],
+                   'STATE': 'ADDED'}
+        elif key not in list(dict2.keys()):  # deleted key
+            row = {'KEY': key,
+                   'VALUE': dict1[key],
+                   'STATE': 'DELETED'}
+        # same keys values checks
+        elif dict1[key] == dict2[key]:
             row = {'KEY': key,
                    'VALUE': dict1[key],
                    'STATE': 'UNCHANGED'
@@ -58,6 +52,8 @@ def build_dif(dict1, dict2):
                    'VALUE_RIGHT': dict2[key],
                    'STATE': 'CHANGED'
                    }
+        else:
+            raise Exception("Impossible situation while comparing 2 files")
 
         result.append(row)
 
@@ -66,9 +62,4 @@ def build_dif(dict1, dict2):
 
 def get_difference(dict1, dict2):
     """Return the difference between 2 dicts"""
-
-    result = {'KEY': 'ROOT',
-              'VALUE': build_dif(dict1, dict2)
-              }
-
-    return result
+    return {'ROOT': build_dif(dict1, dict2)}
