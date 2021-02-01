@@ -29,9 +29,10 @@ def generate_diff(filepath1, filepath2, output_format="stylish"):
     # TODO: separate a diff building and rendering a result
     comparison_result_data = get_difference(data1, data2)
 
-    comparison_result_string = get_formatted_string(comparison_result_data,
-                                                    output_format)
+    #comparison_result_string = get_formatted_string(comparison_result_data,
+    #                                                output_format)
 
-    print(comparison_result_string)  # DEBUG
+    #print(comparison_result_string)  # DEBUG
 
-    return comparison_result_string
+    #return comparison_result_string
+    return comparison_result_data

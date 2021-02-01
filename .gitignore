@@ -9,3 +9,5 @@ hexlet_code.egg-info/
 coverage.xml
 
 .DS_Store
+
+debug_main_function.py
