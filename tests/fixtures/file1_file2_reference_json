@@ -1,0 +1,118 @@
+{
+    "ROOT": [
+        {
+            "KEY": "common",
+            "VALUE": [
+                {
+                    "KEY": "follow",
+                    "VALUE": false,
+                    "STATE": "ADDED"
+                },
+                {
+                    "KEY": "setting1",
+                    "VALUE": "Value 1",
+                    "STATE": "UNCHANGED"
+                },
+                {
+                    "KEY": "setting2",
+                    "VALUE": 200,
+                    "STATE": "DELETED"
+                },
+                {
+                    "KEY": "setting3",
+                    "VALUE_LEFT": true,
+                    "VALUE_RIGHT": null,
+                    "STATE": "CHANGED"
+                },
+                {
+                    "KEY": "setting4",
+                    "VALUE": "blah blah",
+                    "STATE": "ADDED"
+                },
+                {
+                    "KEY": "setting5",
+                    "VALUE": {
+                        "key5": "value5"
+                    },
+                    "STATE": "ADDED"
+                },
+                {
+                    "KEY": "setting6",
+                    "VALUE": [
+                        {
+                            "KEY": "doge",
+                            "VALUE": [
+                                {
+                                    "KEY": "wow",
+                                    "VALUE_LEFT": "",
+                                    "VALUE_RIGHT": "so much",
+                                    "STATE": "CHANGED"
+                                }
+                            ],
+                            "STATE": "CHILDREN"
+                        },
+                        {
+                            "KEY": "key",
+                            "VALUE": "value",
+                            "STATE": "UNCHANGED"
+                        },
+                        {
+                            "KEY": "ops",
+                            "VALUE": "vops",
+                            "STATE": "ADDED"
+                        }
+                    ],
+                    "STATE": "CHILDREN"
+                }
+            ],
+            "STATE": "CHILDREN"
+        },
+        {
+            "KEY": "group1",
+            "VALUE": [
+                {
+                    "KEY": "baz",
+                    "VALUE_LEFT": "bas",
+                    "VALUE_RIGHT": "bars",
+                    "STATE": "CHANGED"
+                },
+                {
+                    "KEY": "foo",
+                    "VALUE": "bar",
+                    "STATE": "UNCHANGED"
+                },
+                {
+                    "KEY": "nest",
+                    "VALUE_LEFT": {
+                        "key": "value"
+                    },
+                    "VALUE_RIGHT": "str",
+                    "STATE": "CHANGED"
+                }
+            ],
+            "STATE": "CHILDREN"
+        },
+        {
+            "KEY": "group2",
+            "VALUE": {
+                "abc": 12345,
+                "deep": {
+                    "id": 45
+                }
+            },
+            "STATE": "DELETED"
+        },
+        {
+            "KEY": "group3",
+            "VALUE": {
+                "deep": {
+                    "id": {
+                        "number": 45
+                    }
+                },
+                "fee": 100500
+            },
+            "STATE": "ADDED"
+        }
+    ]
+}
