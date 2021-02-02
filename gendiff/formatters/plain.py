@@ -1,33 +1,41 @@
-def get_children(data, nesting_level):
+def build_path(parent):
 
-    nesting_level += 1
+    return f'{parent}.' if parent != '' else ''
 
-    text_diff = '{'
+
+def format_if_complex(value_right):
+    if type(value_right) is dict:
+        return '[complex value]'
+    else:
+        return value_right
+
+
+def get_children(data, parent=""):
+
+    info_string = ''
 
     for record in data:
-        spaces = get_spaces(nesting_level)  # for a visual indentation purpose
 
         if record['STATE'] == 'CHILDREN':
-            text_diff += f'\n{spaces}   {record["KEY"]}: ' \
-                         f'{get_children(record["VALUE"], nesting_level)}'
+            info_string += f'Property {build_path(parent)}'\
+                           + get_children(record["VALUE"],
+                                          record["KEY"])
         elif record['STATE'] == 'ADDED':
-            text_diff += f'\n{spaces} + {record["KEY"]}: {record["VALUE"]}'
+            info_string += f'Property {build_path(parent)}' \
+                           f'{record["KEY"]} was added with value: ' \
+                           f'{format_if_complex(record["VALUE"])}\n'
         elif record['STATE'] == 'DELETED':
-            text_diff += f'\n{spaces} - {record["KEY"]}: {record["VALUE"]}'
-        elif record['STATE'] == 'UNCHANGED':
-            text_diff += f'\n{spaces}   {record["KEY"]}: {record["VALUE"]}'
+            info_string += f'Property {build_path(parent)}' \
+                           f'{record["KEY"]} was removed\n'
         elif record['STATE'] == 'CHANGED':
-            text_diff += f'\n{spaces} - {record["KEY"]}: ' \
-                         f'{record["VALUE_LEFT"]}'
-            text_diff += f'\n{spaces} + {record["KEY"]}: ' \
-                         f'{record["VALUE_RIGHT"]}'
+            info_string += f'Property {build_path(parent)}' \
+                           f'{record["KEY"]} was updated. ' \
+                           f'from ' \
+                           f'\'{format_if_complex(record["VALUE_LEFT"])}\'' \
+                           f' to ' \
+                           f'\'{format_if_complex(record["VALUE_RIGHT"])}\'\n'
 
-    if nesting_level > 1:
-        text_diff += '\n' + get_spaces(nesting_level) + '}'
-    else:
-        text_diff += '\n' + '}'
-
-    return text_diff
+    return info_string
 
 
 def get_render_plain(data):
@@ -35,4 +43,5 @@ def get_render_plain(data):
 
     if root_node is None:
         raise Exception('No ROOT node in the internal representation.')
-    return get_children(root_node, nesting_level=0)
+
+    return get_children(root_node)
