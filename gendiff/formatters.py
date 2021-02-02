@@ -1,23 +1,33 @@
+def get_spaces(number_of_spaces):
+    spaces = ""
+    for i in range(0, number_of_spaces):
+        spaces += "\t"
+    return spaces
 
+def get_children(data, nesting_level):
 
-def get_children(data):
+    nesting_level += 1
 
     text_diff = '{'
 
     for record in data:
-        if record['STATE'] == 'CHILDREN':
-            text_diff += f'\n {record["KEY"]}: {get_children(record["VALUE"])}'
-        elif record['STATE'] == 'ADDED':
-            text_diff += f'\n + {record["KEY"]}: {record["VALUE"]}'
-        elif record['STATE'] == 'DELETED':
-            text_diff += f'\n - {record["KEY"]}: {record["VALUE"]}'
-        elif record['STATE'] == 'UNCHANGED':
-            text_diff += f'\n {record["KEY"]}: {record["VALUE"]}'
-        elif record['STATE'] == 'CHANGED':
-            text_diff += f'\n - {record["KEY"]}: {record["VALUE_LEFT"]}'
-            text_diff += f'\n + {record["KEY"]}: {record["VALUE_RIGHT"]}'
+        spaces = get_spaces(nesting_level)
 
-    text_diff += '\n}'
+        if record['STATE'] == 'CHILDREN':
+            text_diff += f'\n{spaces}   {record["KEY"]}: ' \
+                         f'{get_children(record["VALUE"], nesting_level)}'
+        elif record['STATE'] == 'ADDED':
+            text_diff += f'\n{spaces} + {record["KEY"]}: {record["VALUE"]}'
+        elif record['STATE'] == 'DELETED':
+            text_diff += f'\n{spaces} - {record["KEY"]}: {record["VALUE"]}'
+        elif record['STATE'] == 'UNCHANGED':
+            text_diff += f'\n{spaces}   {record["KEY"]}: {record["VALUE"]}'
+        elif record['STATE'] == 'CHANGED':
+            text_diff += f'\n{spaces} - {record["KEY"]}: {record["VALUE_LEFT"]}'
+            text_diff += f'\n{spaces} + {record["KEY"]}: {record["VALUE_RIGHT"]}'
+
+    #text_diff += f'{spaces}\n'+'}'
+    text_diff += get_spaces(nesting_level) + '\n}'
 
     return text_diff
 
@@ -28,7 +38,8 @@ def get_render_stylish(data):
     # kind of a guard expression to save some spaces on indentation-levels
     if root_node is None:
         raise Exception('No ROOT node in the internal representation.')
-    return get_children(root_node)
+    nesting_level = 0
+    return get_children(root_node, nesting_level)
 
 
 def get_formatted_string(data, formatter):
