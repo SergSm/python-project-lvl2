@@ -24,8 +24,10 @@ def get_children(data, nesting_level):
         elif record['STATE'] == 'UNCHANGED':
             text_diff += f'\n{spaces}   {record["KEY"]}: {record["VALUE"]}'
         elif record['STATE'] == 'CHANGED':
-            text_diff += f'\n{spaces} - {record["KEY"]}: {record["VALUE_LEFT"]}'
-            text_diff += f'\n{spaces} + {record["KEY"]}: {record["VALUE_RIGHT"]}'
+            text_diff += f'\n{spaces} - {record["KEY"]}: ' \
+                         f'{record["VALUE_LEFT"]}'
+            text_diff += f'\n{spaces} + {record["KEY"]}: ' \
+                         f'{record["VALUE_RIGHT"]}'
 
     if nesting_level > 1:
         text_diff += '\n' + get_spaces(nesting_level) + '}'
