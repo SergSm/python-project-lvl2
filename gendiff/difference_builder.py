@@ -6,7 +6,7 @@ def build_dif(dict1, dict2):
     dict1_keys = set(dict1.keys())
     dict2_keys = set(dict2.keys())
 
-    # union of all keys from both dictionaries
+    # sorted set of a union of all keys from both dictionaries
     all_keys = sorted(set().union(dict1_keys, dict2_keys))
 
     # handle common keys
