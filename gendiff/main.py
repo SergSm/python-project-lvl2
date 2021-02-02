@@ -10,7 +10,7 @@ ACCEPTABLE_INPUT_EXTENSIONS = ('.JSON', '.YML', '.YAML')
 ACCEPTABLE_OUTPUT_FORMATTERS = ('stylish',)
 
 
-def generate_diff(filepath1, filepath2, output_format="stylish"):
+def generate_diff(filepath1, filepath2, output_format=None):
     """the main function of the library"""
 
     file_ext1 = get_file_extension(filepath1).upper()
@@ -30,5 +30,4 @@ def generate_diff(filepath1, filepath2, output_format="stylish"):
 
     comparison_result_string = get_formatted_string(comparison_result_data,
                                                     output_format)
-
     return comparison_result_string

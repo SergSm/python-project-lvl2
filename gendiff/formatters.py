@@ -4,6 +4,7 @@ def get_spaces(number_of_spaces):
         spaces += "\t"
     return spaces
 
+
 def get_children(data, nesting_level):
 
     nesting_level += 1
@@ -11,7 +12,7 @@ def get_children(data, nesting_level):
     text_diff = '{'
 
     for record in data:
-        spaces = get_spaces(nesting_level)
+        spaces = get_spaces(nesting_level)  # for a visual indentation purpose
 
         if record['STATE'] == 'CHILDREN':
             text_diff += f'\n{spaces}   {record["KEY"]}: ' \
@@ -26,8 +27,10 @@ def get_children(data, nesting_level):
             text_diff += f'\n{spaces} - {record["KEY"]}: {record["VALUE_LEFT"]}'
             text_diff += f'\n{spaces} + {record["KEY"]}: {record["VALUE_RIGHT"]}'
 
-    #text_diff += f'{spaces}\n'+'}'
-    text_diff += get_spaces(nesting_level) + '\n}'
+    if nesting_level > 1:
+        text_diff += '\n' + get_spaces(nesting_level) + '}'
+    else:
+        text_diff += '\n' + '}'
 
     return text_diff
 

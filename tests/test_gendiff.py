@@ -16,35 +16,36 @@ def get_file(path_to_file):
     return content
 
 
-def test_comparison_json():
+def test_comparison_json_in_stylish_out():
 
-    path_to_file_1 = FIXTURE_DIR / 'file1.json'
-    path_to_file_2 = FIXTURE_DIR / 'file2.json'
-    test_format = 'json'
-
-    comparison_result = generate_diff(path_to_file_1,
-                                      path_to_file_2,
-                                      test_format)
-    comparison_result = comparison_result.replace('\n', '')
-
-    reference_result = get_file(FIXTURE_DIR / 'file1_file2_reference')
-    reference_result = reference_result.replace('\n', '')
-
-    assert comparison_result == reference_result
-
-
-def test_comparison_yml():
-
-    path_to_file_1 = FIXTURE_DIR / 'file1.yml'
-    path_to_file_2 = FIXTURE_DIR / 'file2.yml'
-    test_format = 'yml'
+    path_to_file_1 = FIXTURE_DIR / 'file1_nested.json'
+    path_to_file_2 = FIXTURE_DIR / 'file2_nested.json'
+    test_format = 'stylish'
 
     comparison_result = generate_diff(path_to_file_1,
                                       path_to_file_2,
                                       test_format)
     comparison_result = comparison_result.replace('\n', '')
 
-    reference_result = get_file(FIXTURE_DIR / 'file1_file2_reference')
+    reference_result = get_file(FIXTURE_DIR / 'file1_file2_reference_stylish')
     reference_result = reference_result.replace('\n', '')
 
     assert comparison_result == reference_result
+
+
+def test_comparison_yml_in_stylish_out():
+
+    path_to_file_1 = FIXTURE_DIR / 'file1_nested.yml'
+    path_to_file_2 = FIXTURE_DIR / 'file2_nested.yml'
+    test_format = 'stylish'
+
+    comparison_result = generate_diff(path_to_file_1,
+                                      path_to_file_2,
+                                      test_format)
+    comparison_result = comparison_result.replace('\n', '')
+
+    reference_result = get_file(FIXTURE_DIR / 'file1_file2_reference_stylish')
+    reference_result = reference_result.replace('\n', '')
+
+    assert comparison_result == reference_result
+
