@@ -1,10 +1,3 @@
-def get_spaces(number_of_spaces):
-    spaces = ""
-    for i in range(0, number_of_spaces):
-        spaces += "\t"
-    return spaces
-
-
 def get_children(data, nesting_level):
 
     nesting_level += 1
@@ -37,10 +30,9 @@ def get_children(data, nesting_level):
     return text_diff
 
 
-def get_render_stylish(data):
-
+def get_render_plain(data):
     root_node = data.get('ROOT')
-    # kind of a guard expression to save some spaces on indentation-levels
+
     if root_node is None:
         raise Exception('No ROOT node in the internal representation.')
     return get_children(root_node, nesting_level=0)
