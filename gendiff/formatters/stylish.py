@@ -45,11 +45,3 @@ def get_render_stylish(data):
         raise Exception('No ROOT node in the internal representation.')
     nesting_level = 0
     return get_children(root_node, nesting_level)
-
-
-def get_formatted_string(data, formatter):
-
-    if formatter == "stylish":
-        return get_render_stylish(data)
-    else:
-        return "unknown formatter string"

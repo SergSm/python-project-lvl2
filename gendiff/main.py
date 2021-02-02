@@ -3,7 +3,7 @@
 from gendiff.file_handler import get_file_extension, get_file_object
 from gendiff.parser import get_parsed_data
 from gendiff.difference_builder import get_difference
-from gendiff.formatters import get_formatted_string
+from gendiff.formatters.render import get_formatted_string
 
 
 ACCEPTABLE_INPUT_EXTENSIONS = ('.JSON', '.YML', '.YAML')
