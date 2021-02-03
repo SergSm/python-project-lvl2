@@ -19,3 +19,13 @@ Calculate any difference between 2 files and show them
 ## Installation
 
 ## How to use
+
+## Examples
+Comparing 2 flat json files
+[![asciicast](https://asciinema.org/a/TpKjgjmx5NfNXnV7s1FI0QlPa.svg)](https://asciinema.org/a/TpKjgjmx5NfNXnV7s1FI0QlPa)
+
+Comparing 2 flat yml files
+[![asciicast](https://asciinema.org/a/F3bMdupptoxWZdxc9p4lmjSoH.svg)](https://asciinema.org/a/F3bMdupptoxWZdxc9p4lmjSoH)
+
+Using 'stylish' difference output formatter
+[![asciicast](https://asciinema.org/a/geIN8kPY39KZN3fPuQuPp7D5s.svg)](https://asciinema.org/a/geIN8kPY39KZN3fPuQuPp7D5s)
