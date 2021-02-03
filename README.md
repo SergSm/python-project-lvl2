@@ -20,6 +20,7 @@ Calculate any difference between 2 files and show them
 ```make install```
 
 ## How to use
+```
 usage: gendiff [-h] [-f FORMAT] first_file second_file
 
 Generate diff
@@ -33,7 +34,7 @@ optional arguments:
   -h, --help            show this help message and exit\
   -f FORMAT, --format FORMAT\
                         set format of output. Possible values:stylish, plain, json
-                        
+```                     
 ## Also...
 You may execute 
 ```make lint``` to run flake8
