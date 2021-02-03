@@ -11,8 +11,9 @@ def get_arguments():
     # optional arguments shor and long forms
     parser.add_argument('-f',
                         '--format',
-                        help="set format of output",
-                        default='stylish'
+                        help="set format of output. Possible values:"
+                             "stylish, plain, json",
+                        default='stylish',
                         )
 
     args = parser.parse_args()
