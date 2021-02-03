@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hexlet-code"
-version = "0.1.0"
+version = "0.2.0"
 description = "Compare 2 files"
 authors = ["SergSm <smirnovserg.s@gmail.com>"]
 license = "MIT"
@@ -13,7 +13,7 @@ gendiff = "gendiff.scripts.gendiff:main"
 
 [tool.poetry.dependencies]
 python = "^3.6"
-argparse = "^1.4.0"
+pyyaml = "^5.3.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
