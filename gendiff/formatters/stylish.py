@@ -1,7 +1,8 @@
 def get_spaces(number_of_spaces):
     spaces = ""
     for i in range(0, number_of_spaces):
-        spaces += "\t"
+        #spaces += "\t"
+        spaces += "    "
     return spaces
 
 
@@ -33,7 +34,6 @@ def get_children(data, nesting_level):
         text_diff += '\n' + get_spaces(nesting_level) + '}'
     else:
         text_diff += '\n' + '}'
-
 
     return text_diff
 
