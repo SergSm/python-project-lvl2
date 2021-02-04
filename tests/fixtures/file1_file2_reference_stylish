@@ -4,12 +4,12 @@
 		   setting1: Value 1
 		 - setting2: 200
 		 - setting3: True
-		 + setting3: None
+		 + setting3: {'key': 'value'}
 		 + setting4: blah blah
 		 + setting5: {'key5': 'value5'}
 		   setting6: {
 			   doge: {
-				 - wow: 
+				 - wow: too much
 				 + wow: so much
 				}
 			   key: value
@@ -25,4 +25,21 @@
 		}
 	 - group2: {'abc': 12345, 'deep': {'id': 45}}
 	 + group3: {'deep': {'id': {'number': 45}}, 'fee': 100500}
+	   group4: {
+		 - default: None
+		 + default: 
+		 - foo: 0
+		 + foo: None
+		 - isNested: False
+		 + isNested: none
+		 + key: False
+		   nest: {
+			 - bar: 
+			 + bar: 0
+			 - isNested: True
+			}
+		 + someKey: True
+		 - type: bas
+		 + type: bar
+		}
 }

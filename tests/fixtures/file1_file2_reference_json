@@ -21,7 +21,9 @@
                 {
                     "KEY": "setting3",
                     "VALUE_LEFT": true,
-                    "VALUE_RIGHT": null,
+                    "VALUE_RIGHT": {
+                        "key": "value"
+                    },
                     "STATE": "CHANGED"
                 },
                 {
@@ -44,7 +46,7 @@
                             "VALUE": [
                                 {
                                     "KEY": "wow",
-                                    "VALUE_LEFT": "",
+                                    "VALUE_LEFT": "too much",
                                     "VALUE_RIGHT": "so much",
                                     "STATE": "CHANGED"
                                 }
@@ -113,6 +115,63 @@
                 "fee": 100500
             },
             "STATE": "ADDED"
+        },
+        {
+            "KEY": "group4",
+            "VALUE": [
+                {
+                    "KEY": "default",
+                    "VALUE_LEFT": null,
+                    "VALUE_RIGHT": "",
+                    "STATE": "CHANGED"
+                },
+                {
+                    "KEY": "foo",
+                    "VALUE_LEFT": 0,
+                    "VALUE_RIGHT": null,
+                    "STATE": "CHANGED"
+                },
+                {
+                    "KEY": "isNested",
+                    "VALUE_LEFT": false,
+                    "VALUE_RIGHT": "none",
+                    "STATE": "CHANGED"
+                },
+                {
+                    "KEY": "key",
+                    "VALUE": false,
+                    "STATE": "ADDED"
+                },
+                {
+                    "KEY": "nest",
+                    "VALUE": [
+                        {
+                            "KEY": "bar",
+                            "VALUE_LEFT": "",
+                            "VALUE_RIGHT": 0,
+                            "STATE": "CHANGED"
+                        },
+                        {
+                            "KEY": "isNested",
+                            "VALUE": true,
+                            "STATE": "DELETED"
+                        }
+                    ],
+                    "STATE": "CHILDREN"
+                },
+                {
+                    "KEY": "someKey",
+                    "VALUE": true,
+                    "STATE": "ADDED"
+                },
+                {
+                    "KEY": "type",
+                    "VALUE_LEFT": "bas",
+                    "VALUE_RIGHT": "bar",
+                    "STATE": "CHANGED"
+                }
+            ],
+            "STATE": "CHILDREN"
         }
     ]
 }
