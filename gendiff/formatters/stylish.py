@@ -2,7 +2,7 @@ def get_spaces(number_of_spaces):
     spaces = ""
     for i in range(0, number_of_spaces):
         #spaces += "\t"
-        spaces += "    "
+        spaces += " "
     return spaces
 
 
