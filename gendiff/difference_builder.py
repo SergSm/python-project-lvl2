@@ -21,7 +21,9 @@ def build_dif(dict1, dict2):
                    'VALUE': dict1[key],
                    'STATE': 'DELETED'}
         # same keys values checks
-        elif dict1[key] == dict2[key]:
+        elif (dict1[key] == dict2[key]) \
+                and not type(dict1[key]) is dict\
+                and not type(dict2[key]) is dict:
             row = {'KEY': key,
                    'VALUE': dict1[key],
                    'STATE': 'UNCHANGED'

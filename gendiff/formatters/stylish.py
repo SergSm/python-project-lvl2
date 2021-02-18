@@ -8,12 +8,12 @@ def get_spaces(number_of_spaces):
 
 
 # DEBUG
-dct = { 'group2': {'abc': '12345', 'deep': {'id': '45'}}}
+dct = {'group2': {'abc': '12345', 'deep': {'id': '45'}}}
 
 
 def get_mspaces(depth):
     spaaaace = ''
-    for x in range(0, 4*depth):
+    for x in range(1, 4*depth):
         spaaaace += ' '
     return spaaaace
 
@@ -40,15 +40,28 @@ def get_nicely_printed_dict(dictionary, depth):
             astier += get_nicely_printed_dict(y, depth) \
                       + get_mspaces(depth) \
                       + '\n' \
-                      + get_mspaces(depth-1) \
+                      + get_mspaces(depth) \
                       + '}'
         else:
-            astier += get_mspaces(depth) + x + ': ' + y
+            astier += get_mspaces(depth) + str(x) + ': ' + str(y)
             # if it is the last record in dict do not add newstring
             if count < len(dct):
                 astier += '\n'
 
     return astier
+
+
+#  try 3
+def get_formatted_dict(dictionary, nesting_level):
+
+    dict_str_result = ""
+    for x, y in dictionary.items():
+        if not type(y) is dict:
+            dict_str_result += f'{x}: {y}'
+        else:
+            dict_str_result += f'{x}: {get_formatted_dict(y)}'
+
+    return dict_str_result
 
 
 def get_children(data, nesting_level):
@@ -69,13 +82,20 @@ def get_children(data, nesting_level):
             value_right = record["VALUE_RIGHT"]
         else:
             value_left = record["VALUE"]
+            if type(value_left) is dict:
+                #value_left = get_formatted_dict(value_left)
+                pass
+                #value_left = '{\n' \
+                 #           git  + get_nicely_printed_dict(value_left, nesting_level) \
+                  #           + '\n' \
+                   #          + get_mspaces(nesting_level) + '}'
             value_right = ''
 
         if record['STATE'] == 'CHILDREN':
             pretty_children = get_children(record["VALUE"], nesting_level)
         else:
             pretty_children = ''
-            
+
         the_key = record["KEY"]
 
         ############################################################################
@@ -84,7 +104,15 @@ def get_children(data, nesting_level):
             text_diff += f'{prefix}   {the_key}: ' \
                          f'{pretty_children}'
         elif record['STATE'] == 'ADDED':
-            text_diff += f'{prefix} + {the_key}: {value_left}'
+
+            if type(value_left) is dict:
+                txt = get_nicely_printed_dict({prefix + ' + ' + the_key: value_left}, nesting_level)
+            else:
+                txt = f' {the_key}: {value_left}'
+
+            #text_diff += f'{prefix} + {the_key}: {value_left}'
+            text_diff += txt
+
         elif record['STATE'] == 'DELETED':
             text_diff += f'{prefix} - {the_key}: {value_left}'
         elif record['STATE'] == 'UNCHANGED':
@@ -99,8 +127,6 @@ def get_children(data, nesting_level):
         text_diff += '\n' + get_spaces(nesting_level) + '}'
     else:
         text_diff += '\n' + '}'
-
-
 
     return text_diff
 

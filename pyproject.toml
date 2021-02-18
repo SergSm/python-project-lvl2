@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hexlet-code"
-version = "0.2.0"
+version = "0.3.0"
 description = "Compare 2 files"
 authors = ["SergSm <smirnovserg.s@gmail.com>"]
 license = "MIT"

@@ -29,4 +29,5 @@ def generate_diff(filepath1, filepath2, output_format=None):
 
     comparison_result_string = get_formatted_string(comparison_result_data,
                                                     output_format)
+    #print(comparison_result_string)
     return comparison_result_string
