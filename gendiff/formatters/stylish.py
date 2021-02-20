@@ -1,5 +1,6 @@
 
 def change_jsonized_representation(value):
+    """Handles side effects of json.load function"""
     if value is None:
         return 'null'
     if type(value) is bool:
@@ -8,11 +9,15 @@ def change_jsonized_representation(value):
         return value
 
 
-def get_mspaces(depth):
+def get_spaces(depth):
+    """returns the required number of spaces
+     for indentation purpose"""
     return ' ' * (depth * 4 - 2)
 
 
 def get_state_representation(state):
+    """converts internal structure states
+    to the stylish representation"""
     if state == "ADDED":
         return "+"
     elif state == "DELETED":
@@ -22,14 +27,16 @@ def get_state_representation(state):
 
 
 def get_stylished_dict(dctnary, nesting_level):
-
+    """pretty formats the dictionary according to
+    its indentation level"""
     dict_text = ""
-    spaces = get_mspaces(nesting_level)
+    spaces = get_spaces(nesting_level)
 
     for key, val in dctnary.items():
 
         if type(val) is dict:
-            dict_text += f'\n{spaces}  {key}: {{{get_stylished_dict(val, nesting_level + 1)}'
+            dict_value = get_stylished_dict(val, nesting_level + 1)
+            dict_text += f'\n{spaces}  {key}: {{{dict_value}'
             dict_text += f'\n{spaces}  }}'
         else:
             dict_text += f'\n{spaces}  {key}: {val}'
@@ -37,55 +44,61 @@ def get_stylished_dict(dctnary, nesting_level):
     return dict_text
 
 
-def get_element_render(dctnary, nesting_level):
-
+def render_value(key, value, nesting_level, state):
     diff = ""
+    spaces = get_spaces(nesting_level)
+    state = get_state_representation(state)
 
-    spaces = get_mspaces(nesting_level)
-
-    if dctnary["STATE"] == "CHILDREN":
-        # \n"    __KEY:_{render}"
-        #   "123456             "
-        diff += f'\n{spaces}  {dctnary["KEY"]}: {{{render_data(dctnary["VALUE"], nesting_level+1)}'
+    diff += f'\n{spaces}{state} {key}:'
+    # check whether the value is dict or not
+    if type(value) is dict:
+        diff += f' {{{get_stylished_dict(value, nesting_level + 1)}'
         diff += f'\n{spaces}  }}'
     else:
-        if dctnary["STATE"] == "CHANGED":  # there will be 2 lines
-            state_deleted = get_state_representation("DELETED")
-            state_added = get_state_representation("ADDED")
-
-            diff += f'\n{spaces}{state_deleted} {dctnary["KEY"]}:'
-            if type(dctnary["VALUE_LEFT"], ) is dict:
-                diff += f' {{{get_stylished_dict(dctnary["VALUE_LEFT"], nesting_level + 1)}'
-                diff += f'\n{spaces}  }}'
-            else:
-                diff += f' {change_jsonized_representation(dctnary["VALUE_LEFT"])}'
-
-            diff += f'\n{spaces}{state_added} {dctnary["KEY"]}:'
-            if type(dctnary["VALUE_RIGHT"], ) is dict:
-                diff += f' {{{get_stylished_dict(dctnary["VALUE_RIGHT"], nesting_level + 1)}'
-                diff += f'\n{spaces}  }}'
-            else:
-                diff += f' {change_jsonized_representation(dctnary["VALUE_RIGHT"])}'
-
-        else:
-            state = get_state_representation(dctnary["STATE"])
-            diff += f'\n{spaces}{state} {dctnary["KEY"]}:'
-
-            # check whether the value is dict or not
-            if type(dctnary["VALUE"], ) is dict:
-                diff += f' {{{get_stylished_dict(dctnary["VALUE"], nesting_level + 1)}'
-                diff += f'\n{spaces}  }}'
-            else:
-                diff += f' {change_jsonized_representation(dctnary["VALUE"])}'
+        diff += f' {change_jsonized_representation(value)}'
 
     return diff
 
 
-def render_data(data, nesting_level):
+def get_element_render(dctnary, nesting_level):
+
     diff = ""
-    if type(data) is list:
-        for element in data:
-            diff += get_element_render(element, nesting_level)
+    spaces = get_spaces(nesting_level)
+
+    if dctnary["STATE"] == "CHILDREN":
+        list_diff = handle_list(dctnary["VALUE"], nesting_level + 1)
+        diff += f'\n{spaces}  {dctnary["KEY"]}: {{' \
+                f'{list_diff}'
+        diff += f'\n{spaces}  }}'
+    else:
+        if dctnary["STATE"] == "CHANGED":  # there will be 2 lines
+
+            diff += render_value(dctnary["KEY"],
+                                 dctnary["VALUE_LEFT"],
+                                 nesting_level,
+                                 state="DELETED")
+
+            diff += render_value(dctnary["KEY"],
+                                 dctnary["VALUE_RIGHT"],
+                                 nesting_level,
+                                 state="ADDED")
+        else:
+
+            diff += render_value(dctnary["KEY"],
+                                 dctnary["VALUE"],
+                                 nesting_level,
+                                 state=dctnary["STATE"])
+
+    return diff
+
+
+def handle_list(data, nesting_level):
+    """Handles the list from the internal tree structure
+    the data may come from a ROOT node on its first run
+    whether from a node with a "CHILDREN" state"""
+    diff = ""
+    for element in data:
+        diff += get_element_render(element, nesting_level)
 
     return diff
 
@@ -98,10 +111,8 @@ def get_render_stylish(data):
     if root_node is None:
         raise Exception('No ROOT node in the internal representation.')
 
-    text_diff = "{"
+    diff = "{"
+    diff += handle_list(root_node, nesting_level=1)
+    diff += "\n}"
 
-    text_diff += render_data(root_node, nesting_level=1)
-
-    text_diff += "\n}"
-
-    return text_diff
+    return diff

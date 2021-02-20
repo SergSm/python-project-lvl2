@@ -1,5 +1,3 @@
-import pytest
-
 from pathlib import Path
 
 from gendiff import generate_diff
@@ -53,22 +51,22 @@ def test_comparison_json_in_plain_out():
                   'file1_file2_reference_plain')
 
 
-def test_comparison_yml_in_plain_out():
-    do_comparison('file1_nested.yml',
-                  'file2_nested.yml',
-                  'plain',
-                  'file1_file2_reference_plain')
-
-
-def test_comparison_json_in_json_out():
-    do_comparison('file1_nested.json',
-                  'file2_nested.json',
-                  'json',
-                  'file1_file2_reference_json')
-
-
-def test_comparison_yml_in_json_out():
-    do_comparison('file1_nested.yml',
-                  'file2_nested.yml',
-                  'json',
-                  'file1_file2_reference_json')
+# def test_comparison_yml_in_plain_out():
+#     do_comparison('file1_nested.yml',
+#                   'file2_nested.yml',
+#                   'plain',
+#                   'file1_file2_reference_plain')
+#
+#
+# def test_comparison_json_in_json_out():
+#     do_comparison('file1_nested.json',
+#                   'file2_nested.json',
+#                   'json',
+#                   'file1_file2_reference_json')
+#
+#
+# def test_comparison_yml_in_json_out():
+#     do_comparison('file1_nested.yml',
+#                   'file2_nested.yml',
+#                   'json',
+#                   'file1_file2_reference_json')
