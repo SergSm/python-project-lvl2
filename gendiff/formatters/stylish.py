@@ -1,5 +1,5 @@
 
-def change_jsonized_representation(value):
+def format_value(value):
     """Handles side effects of json.load function"""
     if value is None:
         return 'null'
@@ -55,7 +55,7 @@ def render_value(key, value, nesting_level, state):
         diff += f' {{{get_stylished_dict(value, nesting_level + 1)}'
         diff += f'\n{spaces}  }}'
     else:
-        diff += f' {change_jsonized_representation(value)}'
+        diff += f' {format_value(value)}'
 
     return diff
 
