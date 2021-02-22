@@ -9,7 +9,7 @@ from gendiff.formatters.render import get_formatted_string
 ACCEPTABLE_INPUT_EXTENSIONS = ('.JSON', '.YML', '.YAML')
 
 
-def generate_diff(filepath1, filepath2, output_format=None):
+def generate_diff(filepath1, filepath2, output_format="stylish"):
     """the main function of the library"""
 
     file_ext1 = get_file_extension(filepath1).upper()

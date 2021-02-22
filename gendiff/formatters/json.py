@@ -2,4 +2,4 @@ import json
 
 
 def get_render_json(data):
-    return json.dumps(data, indent=4)
+    return json.dumps(data, indent=2)
