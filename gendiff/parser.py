@@ -4,7 +4,7 @@ import json
 import yaml
 
 
-def get_file(fileobject, format_type):
+def get_parsed_data(fileobject, format_type):
 
     """Read file object and return it's data as a collection"""
     if format_type == '.JSON':

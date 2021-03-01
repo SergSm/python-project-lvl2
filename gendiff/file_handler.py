@@ -8,7 +8,7 @@ def get_file_extension(filepath):
     return Path(filepath).suffix
 
 
-def get_file_object(filepath):
+def get_file(filepath):
 
     path = Path(filepath)
 

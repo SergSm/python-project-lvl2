@@ -1,7 +1,7 @@
 """Main module to be called by external code."""
 
-from gendiff.file_handler import get_file_extension, get_file_object
-from gendiff.parser import get_file
+from gendiff.file_handler import get_file_extension, get_file
+from gendiff.parser import get_parsed_data
 from gendiff.difference_builder import get_difference
 from gendiff.formatters.render import get_formatted_string
 
@@ -19,11 +19,11 @@ def generate_diff(filepath1, filepath2, output_format="stylish"):
         raise ValueError(f'Unknown file extension "{file_ext1}",'
                          f' "{file_ext2}" or file(s) has no extension(s)')
 
-    file1 = get_file_object(filepath1)
-    file2 = get_file_object(filepath2)
+    file1 = get_file(filepath1)
+    file2 = get_file(filepath2)
 
-    data1 = get_file(file1, file_ext1)
-    data2 = get_file(file2, file_ext2)
+    data1 = get_parsed_data(file1, file_ext1)
+    data2 = get_parsed_data(file2, file_ext2)
 
     comparison_result_data = get_difference(data1, data2)
 
