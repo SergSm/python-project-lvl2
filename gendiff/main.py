@@ -22,8 +22,8 @@ def generate_diff(filepath1, filepath2, output_format="stylish"):
     file1 = get_file(filepath1)
     file2 = get_file(filepath2)
 
-    data1 = get_parsed_data(file1, file_ext1)
-    data2 = get_parsed_data(file2, file_ext2)
+    data1 = get_parsed_data(file1, format_type=file_ext1[1:])
+    data2 = get_parsed_data(file2, format_type=file_ext2[1:])
 
     comparison_result_data = get_difference(data1, data2)
 
