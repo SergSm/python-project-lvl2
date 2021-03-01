@@ -1,4 +1,4 @@
-from gendiff.tree_description import *
+from gendiff import tree_description as t
 
 
 def build_path(parent):
@@ -22,24 +22,24 @@ def format_value(value):
 def get_children(record, parent=""):
 
     info_string = ""
-    if record[STATE] == CHILDREN:
-        list_diff = handle_list(record[VALUE],
-                                f'{build_path(parent)}{record[KEY]}')
+    if record[t.STATE] == t.CHILDREN:
+        list_diff = handle_list(record[t.VALUE],
+                                f'{build_path(parent)}{record[t.KEY]}')
         info_string += f"{list_diff}"
-    elif record[STATE] == ADDED:
-        info_string += f"\nProperty \'{build_path(parent)}{record[KEY]}\' " \
+    elif record[t.STATE] == t.ADDED:
+        info_string += f"\nProperty \'{build_path(parent)}{record[t.KEY]}\' " \
                        f"was added with value: " \
-                       f"{format_value(record[VALUE])}"
-    elif record[STATE] == DELETED:
-        info_string += f"\nProperty \'{build_path(parent)}{record[KEY]}\' " \
+                       f"{format_value(record[t.VALUE])}"
+    elif record[t.STATE] == t.DELETED:
+        info_string += f"\nProperty \'{build_path(parent)}{record[t.KEY]}\' " \
                        f"was removed"
-    elif record[STATE] == CHANGED:
-        info_string += f"\nProperty \'{parent}.{record[KEY]}\'" \
+    elif record[t.STATE] == t.CHANGED:
+        info_string += f"\nProperty \'{parent}.{record[t.KEY]}\'" \
                        f" was updated. " \
                        f"From " \
-                       f"{format_value(record[VALUE_LEFT])}" \
+                       f"{format_value(record[t.VALUE_LEFT])}" \
                        f" to " \
-                       f"{format_value(record[VALUE_RIGHT])}"
+                       f"{format_value(record[t.VALUE_RIGHT])}"
 
     return info_string
 

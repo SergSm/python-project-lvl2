@@ -1,5 +1,5 @@
 
-from gendiff.tree_description import *
+from gendiff import tree_description as t
 
 
 def format_value(value):
@@ -21,11 +21,11 @@ def get_spaces(depth):
 def get_state_representation(state):
     """converts internal structure states
     to the stylish representation"""
-    if state == ADDED:
+    if state == t.ADDED:
         return "+"
-    elif state == DELETED:
+    elif state == t.DELETED:
         return "-"
-    elif state == UNCHANGED:
+    elif state == t.UNCHANGED:
         return " "
 
 
@@ -68,29 +68,29 @@ def get_element_render(dctnary, nesting_level):
     diff = ""
     spaces = get_spaces(nesting_level)
 
-    if dctnary[STATE] == CHILDREN:
-        list_diff = handle_list(dctnary[VALUE], nesting_level + 1)
-        diff += f'\n{spaces}  {dctnary[KEY]}: {{' \
+    if dctnary[t.STATE] == t.CHILDREN:
+        list_diff = handle_list(dctnary[t.VALUE], nesting_level + 1)
+        diff += f'\n{spaces}  {dctnary[t.KEY]}: {{' \
                 f'{list_diff}'
         diff += f'\n{spaces}  }}'
     else:
-        if dctnary[STATE] == CHANGED:  # there will be 2 lines
+        if dctnary[t.STATE] == t.CHANGED:  # there will be 2 lines
 
-            diff += render_value(dctnary[KEY],
-                                 dctnary[VALUE_LEFT],
+            diff += render_value(dctnary[t.KEY],
+                                 dctnary[t.VALUE_LEFT],
                                  nesting_level,
-                                 state=DELETED)
+                                 state=t.DELETED)
 
-            diff += render_value(dctnary[KEY],
-                                 dctnary[VALUE_RIGHT],
+            diff += render_value(dctnary[t.KEY],
+                                 dctnary[t.VALUE_RIGHT],
                                  nesting_level,
-                                 state=ADDED)
+                                 state=t.ADDED)
         else:
 
-            diff += render_value(dctnary[KEY],
-                                 dctnary[VALUE],
+            diff += render_value(dctnary[t.KEY],
+                                 dctnary[t.VALUE],
                                  nesting_level,
-                                 state=dctnary[STATE])
+                                 state=dctnary[t.STATE])
 
     return diff
 

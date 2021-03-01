@@ -1,4 +1,5 @@
-"""Module describes keys and types of nodes for an internal structure which is used
+"""Module describes keys and types of nodes
+for an internal structure which is used
 to render the difference using formatters"""
 
 # left part of the dictionary
