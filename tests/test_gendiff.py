@@ -22,10 +22,10 @@ input_cases = []
 for input_format in input_formats:
     for output_format in output_formatters:
         input_cases.append(
-                            (f'file1_nested.{input_format}',
-                             f'file2_nested.{input_format}',
-                             output_format,
-                             f'file1_file2_reference_{output_format}'))
+            (f'file1_nested.{input_format}',
+             f'file2_nested.{input_format}',
+             output_format,
+             f'file1_file2_reference_{output_format}'))
 
 
 @pytest.mark.parametrize('file1, file2, formatter, reference', input_cases)
