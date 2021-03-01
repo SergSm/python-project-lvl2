@@ -1,3 +1,4 @@
+import pytest
 from pathlib import Path
 
 from gendiff import generate_diff
@@ -14,7 +15,22 @@ def get_file(path_to_file):
     return content
 
 
-def do_comparison(file1, file2, formatter, reference):
+input_formats = ['json', 'yml']
+output_formatters = ['stylish', 'plain', 'json']
+
+input_cases = []
+for input_format in input_formats:
+    for output_format in output_formatters:
+        input_cases.append(
+                            (f'file1_nested.{input_format}',
+                             f'file2_nested.{input_format}',
+                             output_format,
+                             f'file1_file2_reference_{output_format}')
+                          )
+
+
+@pytest.mark.parametrize('file1, file2, formatter, reference', input_cases)
+def test_gendiff(file1, file2, formatter, reference):
     path_to_file_1 = FIXTURE_DIR / file1
     path_to_file_2 = FIXTURE_DIR / file2
     test_format = formatter
@@ -28,45 +44,3 @@ def do_comparison(file1, file2, formatter, reference):
     reference_result = reference_result.replace('\n', '')
 
     assert comparison_result == reference_result
-
-
-def test_comparison_json_in_stylish_out():
-    do_comparison('file1_nested.json',
-                  'file2_nested.json',
-                  'stylish',
-                  'file1_file2_reference_stylish')
-
-
-def test_comparison_yml_in_stylish_out():
-    do_comparison('file1_nested.yml',
-                  'file2_nested.yml',
-                  'stylish',
-                  'file1_file2_reference_stylish')
-
-
-def test_comparison_json_in_plain_out():
-    do_comparison('file1_nested.json',
-                  'file2_nested.json',
-                  'plain',
-                  'file1_file2_reference_plain')
-
-
-def test_comparison_yml_in_plain_out():
-    do_comparison('file1_nested.yml',
-                  'file2_nested.yml',
-                  'plain',
-                  'file1_file2_reference_plain')
-
-
-def test_comparison_json_in_json_out():
-    do_comparison('file1_nested.json',
-                  'file2_nested.json',
-                  'json',
-                  'file1_file2_reference_json')
-
-
-def test_comparison_yml_in_json_out():
-    do_comparison('file1_nested.yml',
-                  'file2_nested.yml',
-                  'json',
-                  'file1_file2_reference_json')
