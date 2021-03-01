@@ -27,6 +27,6 @@ def generate_diff(filepath1, filepath2, output_format="stylish"):
 
     comparison_result_data = get_difference(data1, data2)
 
-    comparison_result_string = get_formatted_string(comparison_result_data,
-                                                    output_format)
-    return comparison_result_string
+    comparison_result = get_formatted_string(comparison_result_data,
+                                             output_format)
+    return comparison_result

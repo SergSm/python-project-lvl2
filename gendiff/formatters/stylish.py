@@ -1,4 +1,7 @@
 
+from gendiff.tree_description import *
+
+
 def format_value(value):
     """Handles side effects of json.load function"""
     if value is None:
@@ -18,11 +21,11 @@ def get_spaces(depth):
 def get_state_representation(state):
     """converts internal structure states
     to the stylish representation"""
-    if state == "ADDED":
+    if state == ADDED:
         return "+"
-    elif state == "DELETED":
+    elif state == DELETED:
         return "-"
-    elif state == "UNCHANGED":
+    elif state == UNCHANGED:
         return " "
 
 
@@ -65,29 +68,29 @@ def get_element_render(dctnary, nesting_level):
     diff = ""
     spaces = get_spaces(nesting_level)
 
-    if dctnary["STATE"] == "CHILDREN":
-        list_diff = handle_list(dctnary["VALUE"], nesting_level + 1)
-        diff += f'\n{spaces}  {dctnary["KEY"]}: {{' \
+    if dctnary[STATE] == CHILDREN:
+        list_diff = handle_list(dctnary[VALUE], nesting_level + 1)
+        diff += f'\n{spaces}  {dctnary[KEY]}: {{' \
                 f'{list_diff}'
         diff += f'\n{spaces}  }}'
     else:
-        if dctnary["STATE"] == "CHANGED":  # there will be 2 lines
+        if dctnary[STATE] == CHANGED:  # there will be 2 lines
 
-            diff += render_value(dctnary["KEY"],
-                                 dctnary["VALUE_LEFT"],
+            diff += render_value(dctnary[KEY],
+                                 dctnary[VALUE_LEFT],
                                  nesting_level,
-                                 state="DELETED")
+                                 state=DELETED)
 
-            diff += render_value(dctnary["KEY"],
-                                 dctnary["VALUE_RIGHT"],
+            diff += render_value(dctnary[KEY],
+                                 dctnary[VALUE_RIGHT],
                                  nesting_level,
-                                 state="ADDED")
+                                 state=ADDED)
         else:
 
-            diff += render_value(dctnary["KEY"],
-                                 dctnary["VALUE"],
+            diff += render_value(dctnary[KEY],
+                                 dctnary[VALUE],
                                  nesting_level,
-                                 state=dctnary["STATE"])
+                                 state=dctnary[STATE])
 
     return diff
 

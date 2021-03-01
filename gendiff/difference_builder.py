@@ -1,3 +1,7 @@
+
+from gendiff.tree_description import *
+
+
 def build_dif(dict1, dict2):
 
     result = []
@@ -13,46 +17,46 @@ def build_dif(dict1, dict2):
     for key in all_keys:
         # key uniqueness checks
         if key not in list(dict1.keys()):  # new key
-            row = {'KEY': key,
-                   'VALUE': dict2[key],
-                   'STATE': 'ADDED'}
+            row = {KEY: key,
+                   VALUE: dict2[key],
+                   STATE: ADDED}
         elif key not in list(dict2.keys()):  # deleted key
-            row = {'KEY': key,
-                   'VALUE': dict1[key],
-                   'STATE': 'DELETED'}
+            row = {KEY: key,
+                   VALUE: dict1[key],
+                   STATE: DELETED}
         # same keys values checks
         elif (dict1[key] == dict2[key]) \
                 and not type(dict1[key]) is dict\
                 and not type(dict2[key]) is dict:
-            row = {'KEY': key,
-                   'VALUE': dict1[key],
-                   'STATE': 'UNCHANGED'
+            row = {KEY: key,
+                   VALUE: dict1[key],
+                   STATE: UNCHANGED
                    }
         elif type(dict1[key]) is dict\
                 and type(dict2[key]) is dict:  # both dictionaries
-            row = {'KEY': key,
-                   'VALUE': build_dif(dict1[key], dict2[key]),
-                   'STATE': 'CHILDREN',
+            row = {KEY: key,
+                   VALUE: build_dif(dict1[key], dict2[key]),
+                   STATE: CHILDREN,
                    }
         elif type(dict1[key]) is dict\
                 and not type(dict2[key]) is dict:  # left value is a dictionary
-            row = {'KEY': key,
-                   'VALUE_LEFT': dict1[key],
-                   'VALUE_RIGHT': dict2[key],
-                   'STATE': 'CHANGED',
+            row = {KEY: key,
+                   VALUE_LEFT: dict1[key],
+                   VALUE_RIGHT: dict2[key],
+                   STATE: CHANGED,
                    }
         elif not type(dict1[key]) is dict\
                 and type(dict2[key]) is dict:  # right value is a dictionary
-            row = {'KEY': key,
-                   'VALUE_LEFT': dict1[key],
-                   'VALUE_RIGHT': dict2[key],
-                   'STATE': 'CHANGED',
+            row = {KEY: key,
+                   VALUE_LEFT: dict1[key],
+                   VALUE_RIGHT: dict2[key],
+                   STATE: CHANGED,
                    }
         elif dict1[key] != dict2[key]:  # simple types, non-dictionary
-            row = {'KEY': key,
-                   'VALUE_LEFT': dict1[key],
-                   'VALUE_RIGHT': dict2[key],
-                   'STATE': 'CHANGED'
+            row = {KEY: key,
+                   VALUE_LEFT: dict1[key],
+                   VALUE_RIGHT: dict2[key],
+                   STATE: CHANGED
                    }
         else:
             raise Exception("Impossible situation while comparing 2 files")
