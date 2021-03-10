@@ -99,23 +99,20 @@ def handle_list(data, nesting_level):
     """Handles the list from the internal tree structure
     the data may come from a ROOT node on its first run
     whether from a node with a "CHILDREN" state"""
-    diff = ""
-    for element in data:
-        diff += get_element_render(element, nesting_level)
+
+    if type(data) is list:
+        diff = ""
+        for element in data:
+            diff += get_element_render(element, nesting_level)
+    else:
+        root_node = data.get('ROOT')
+        diff = "{"
+        diff += handle_list(root_node, nesting_level)
+        diff += "\n}"
 
     return diff
 
 
 def get_render_stylish(data):
-
-    root_node = data.get('ROOT')
-    # kind of a guard expression
-    # to save some spaces on indentation-levels
-    if root_node is None:
-        raise Exception('No ROOT node in the internal representation.')
-
-    diff = "{"
-    diff += handle_list(root_node, nesting_level=1)
-    diff += "\n}"
-
+    diff = handle_list(data, nesting_level=1)
     return diff
