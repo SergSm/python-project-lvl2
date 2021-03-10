@@ -3,12 +3,12 @@
 from pathlib import Path
 
 
-def get_file_extension(filepath):
+def get_file_format(filepath):
     """Returns file extension without dot"""
-    return Path(filepath).suffix
+    return Path(filepath).suffix[1:]
 
 
-def get_file(filepath):
+def open_if_files_exists(filepath):
 
     path = Path(filepath)
 

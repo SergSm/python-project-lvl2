@@ -3,7 +3,7 @@ from .plain import get_render_plain
 from .json import get_render_json
 
 
-def get_formatted_string(data, formatter):
+def get_formatted_result(data, formatter):
 
     if formatter == "stylish":
         return get_render_stylish(data)
@@ -12,4 +12,4 @@ def get_formatted_string(data, formatter):
     elif formatter == "json":
         return get_render_json(data)
     else:
-        return "unknown formatter string"
+        raise ValueError(f'unknown formatter {formatter}')
