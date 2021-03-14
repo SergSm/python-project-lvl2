@@ -15,18 +15,6 @@ def get_data(filepath):
 def generate_diff(filepath1, filepath2, output_format="stylish"):
     """the main function of the library"""
 
-    # file_ext1 = get_file_extension(filepath1).upper()
-    # file_ext2 = get_file_extension(filepath2).upper()
-    #
-    # if not (file_ext1, file_ext2 in ACCEPTABLE_INPUT_EXTENSIONS):
-    #     raise ValueError(f'Unknown file extension "{file_ext1}",'
-    #                      f' "{file_ext2}" or file(s) has no extension(s)')
-
-    # file1 = get_file(filepath1)
-    # file2 = get_file(filepath2)
-
-    # data1 = parse(file1, format=file_ext1[1:])
-    # data2 = parse(file2, format=file_ext2[1:])
     data1 = get_data(filepath1)
     data2 = get_data(filepath2)
 
