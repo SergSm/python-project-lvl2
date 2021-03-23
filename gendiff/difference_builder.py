@@ -17,33 +17,33 @@ def build_dif(dict1, dict2):
     for key in all_keys:
         # key uniqueness checks
         if key not in dict1:  # new key
-            row = {t.KEY: key,
+            node = {t.KEY: key,
                    t.VALUE: dict2[key],
                    t.STATE: t.ADDED}
         elif key not in dict2:  # deleted key
-            row = {t.KEY: key,
+            node = {t.KEY: key,
                    t.VALUE: dict1[key],
                    t.STATE: t.DELETED}
         # same keys values checks
         elif dict1[key] == dict2[key]:
-            row = {t.KEY: key,
+            node = {t.KEY: key,
                    t.VALUE: dict1[key],
                    t.STATE: t.UNCHANGED
                    }
         elif type(dict1[key]) is dict\
                 and type(dict2[key]) is dict:  # both dictionaries
-            row = {t.KEY: key,
+            node = {t.KEY: key,
                    t.VALUE: build_dif(dict1[key], dict2[key]),
                    t.STATE: t.CHILDREN,
                    }
         else:  # means dict1[key] != dict2[key]
-            row = {t.KEY: key,
+            node = {t.KEY: key,
                    t.VALUE_LEFT: dict1[key],
                    t.VALUE_RIGHT: dict2[key],
                    t.STATE: t.CHANGED
                    }
 
-        result.append(row)
+        result.append(node)
 
     return result
 

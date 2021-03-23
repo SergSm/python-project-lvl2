@@ -29,13 +29,13 @@ def get_state_representation(state):
         return " "
 
 
-def get_stylished_dict(dctnary, nesting_level):
+def get_stylished_dict(node, nesting_level):
     """pretty formats the dictionary according to
     its indentation level"""
     dict_text = ""
     spaces = get_spaces(nesting_level)
 
-    for key, val in dctnary.items():
+    for key, val in node.items():
 
         if type(val) is dict:
             dict_value = get_stylished_dict(val, nesting_level + 1)
@@ -63,34 +63,34 @@ def render_value(key, value, nesting_level, state):
     return diff
 
 
-def get_element_render(dctnary, nesting_level):
+def get_element_render(node, nesting_level):
 
     diff = ""
     spaces = get_spaces(nesting_level)
 
-    if dctnary[t.STATE] == t.CHILDREN:
-        list_diff = handle_list(dctnary[t.VALUE], nesting_level + 1)
-        diff += f'\n{spaces}  {dctnary[t.KEY]}: {{' \
+    if node[t.STATE] == t.CHILDREN:
+        list_diff = handle_list(node[t.VALUE], nesting_level + 1)
+        diff += f'\n{spaces}  {node[t.KEY]}: {{' \
                 f'{list_diff}'
         diff += f'\n{spaces}  }}'
     else:
-        if dctnary[t.STATE] == t.CHANGED:  # there will be 2 lines
+        if node[t.STATE] == t.CHANGED:  # there will be 2 lines
 
-            diff += render_value(dctnary[t.KEY],
-                                 dctnary[t.VALUE_LEFT],
+            diff += render_value(node[t.KEY],
+                                 node[t.VALUE_LEFT],
                                  nesting_level,
                                  state=t.DELETED)
 
-            diff += render_value(dctnary[t.KEY],
-                                 dctnary[t.VALUE_RIGHT],
+            diff += render_value(node[t.KEY],
+                                 node[t.VALUE_RIGHT],
                                  nesting_level,
                                  state=t.ADDED)
         else:
 
-            diff += render_value(dctnary[t.KEY],
-                                 dctnary[t.VALUE],
+            diff += render_value(node[t.KEY],
+                                 node[t.VALUE],
                                  nesting_level,
-                                 state=dctnary[t.STATE])
+                                 state=node[t.STATE])
 
     return diff
 

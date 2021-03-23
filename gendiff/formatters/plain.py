@@ -19,27 +19,27 @@ def format_value(value):
         return value
 
 
-def get_children(record, parent=""):
+def get_children(node, parent=""):
 
     info_string = ""
-    if record[t.STATE] == t.CHILDREN:
-        list_diff = handle_list(record[t.VALUE],
-                                f'{build_path(parent)}{record[t.KEY]}')
+    if node[t.STATE] == t.CHILDREN:
+        list_diff = handle_list(node[t.VALUE],
+                                f'{build_path(parent)}{node[t.KEY]}')
         info_string += f"{list_diff}"
-    elif record[t.STATE] == t.ADDED:
-        info_string += f"\nProperty \'{build_path(parent)}{record[t.KEY]}\' " \
+    elif node[t.STATE] == t.ADDED:
+        info_string += f"\nProperty \'{build_path(parent)}{node[t.KEY]}\' " \
                        f"was added with value: " \
-                       f"{format_value(record[t.VALUE])}"
-    elif record[t.STATE] == t.DELETED:
-        info_string += f"\nProperty \'{build_path(parent)}{record[t.KEY]}\' " \
+                       f"{format_value(node[t.VALUE])}"
+    elif node[t.STATE] == t.DELETED:
+        info_string += f"\nProperty \'{build_path(parent)}{node[t.KEY]}\' " \
                        f"was removed"
-    elif record[t.STATE] == t.CHANGED:
-        info_string += f"\nProperty \'{parent}.{record[t.KEY]}\'" \
+    elif node[t.STATE] == t.CHANGED:
+        info_string += f"\nProperty \'{parent}.{node[t.KEY]}\'" \
                        f" was updated. " \
                        f"From " \
-                       f"{format_value(record[t.VALUE_LEFT])}" \
+                       f"{format_value(node[t.VALUE_LEFT])}" \
                        f" to " \
-                       f"{format_value(record[t.VALUE_RIGHT])}"
+                       f"{format_value(node[t.VALUE_RIGHT])}"
 
     return info_string
 
