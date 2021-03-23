@@ -16,18 +16,16 @@ def build_dif(dict1, dict2):
     # handle common keys
     for key in all_keys:
         # key uniqueness checks
-        if key not in list(dict1.keys()):  # new key
+        if key not in dict1:  # new key
             row = {t.KEY: key,
                    t.VALUE: dict2[key],
                    t.STATE: t.ADDED}
-        elif key not in list(dict2.keys()):  # deleted key
+        elif key not in dict2:  # deleted key
             row = {t.KEY: key,
                    t.VALUE: dict1[key],
                    t.STATE: t.DELETED}
         # same keys values checks
-        elif (dict1[key] == dict2[key]) \
-                and not type(dict1[key]) is dict\
-                and not type(dict2[key]) is dict:
+        elif dict1[key] == dict2[key]:
             row = {t.KEY: key,
                    t.VALUE: dict1[key],
                    t.STATE: t.UNCHANGED
@@ -38,21 +36,7 @@ def build_dif(dict1, dict2):
                    t.VALUE: build_dif(dict1[key], dict2[key]),
                    t.STATE: t.CHILDREN,
                    }
-        elif type(dict1[key]) is dict\
-                and not type(dict2[key]) is dict:  # left value is a dictionary
-            row = {t.KEY: key,
-                   t.VALUE_LEFT: dict1[key],
-                   t.VALUE_RIGHT: dict2[key],
-                   t.STATE: t.CHANGED,
-                   }
-        elif not type(dict1[key]) is dict\
-                and type(dict2[key]) is dict:  # right value is a dictionary
-            row = {t.KEY: key,
-                   t.VALUE_LEFT: dict1[key],
-                   t.VALUE_RIGHT: dict2[key],
-                   t.STATE: t.CHANGED,
-                   }
-        elif dict1[key] != dict2[key]:  # simple types, non-dictionary
+        elif dict1[key] != dict2[key]:
             row = {t.KEY: key,
                    t.VALUE_LEFT: dict1[key],
                    t.VALUE_RIGHT: dict2[key],
