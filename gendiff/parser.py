@@ -4,14 +4,8 @@ import json
 import yaml
 
 
-ACCEPTABLE_FORMATS = ('JSON', 'YML', 'YAML')
-
-
 def parse(data, input_format):
     """Read file object and return it's data as a collection"""
-
-    if input_format not in ACCEPTABLE_FORMATS:
-        raise ValueError(f'Unknown file extension "{input_format}"')
 
     if input_format == 'JSON':
         return json.load(data)
