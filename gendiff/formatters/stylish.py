@@ -56,7 +56,9 @@ def get_element_render(node, nesting_level):
             # DELETED
             diff += f'\n{spaces}{format_value(t.DELETED)} {node[t.KEY]}:'
             if type(node[t.VALUE_LEFT]) is dict:
-                diff += f' {{{get_stylished_dict(node[t.VALUE_LEFT], nesting_level + 1)}'
+                formatted_dict = get_stylished_dict(node[t.VALUE_LEFT],
+                                                    nesting_level + 1)
+                diff += f' {{{formatted_dict}'
                 diff += f'\n{spaces}  }}'
             else:
                 diff += f' {format_value(node[t.VALUE_LEFT])}'
@@ -64,7 +66,9 @@ def get_element_render(node, nesting_level):
             # ...and ADDED
             diff += f'\n{spaces}{format_value(t.ADDED)} {node[t.KEY]}:'
             if type(node[t.VALUE_RIGHT]) is dict:
-                diff += f' {{{get_stylished_dict(node[t.VALUE_RIGHT], nesting_level + 1)}'
+                formatted_dict = get_stylished_dict(node[t.VALUE_RIGHT],
+                                                    nesting_level + 1)
+                diff += f' {{{formatted_dict}'
                 diff += f'\n{spaces}  }}'
             else:
                 diff += f' {format_value(node[t.VALUE_RIGHT])}'
@@ -73,7 +77,9 @@ def get_element_render(node, nesting_level):
 
             diff += f'\n{spaces}{format_value(node[t.STATE])} {node[t.KEY]}:'
             if type(node[t.VALUE]) is dict:
-                diff += f' {{{get_stylished_dict(node[t.VALUE], nesting_level + 1)}'
+                formatted_dict = get_stylished_dict(node[t.VALUE],
+                                                    nesting_level + 1)
+                diff += f' {{{formatted_dict}'
                 diff += f'\n{spaces}  }}'
             else:
                 diff += f' {format_value(node[t.VALUE])}'
