@@ -57,9 +57,6 @@ def handle_list(data, parent=""):
 def get_render_plain(data):
     root_node = data.get('ROOT')
 
-    if root_node is None:
-        raise Exception('No ROOT node in the internal representation.')
-
     diff = handle_list(root_node)
     diff = diff[1:]  # removes the first new string character
 
