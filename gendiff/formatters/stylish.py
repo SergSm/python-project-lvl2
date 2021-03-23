@@ -3,11 +3,16 @@ from gendiff import tree_description as t
 
 
 def format_value(value):
-    """Handles side effects of json.load function"""
     if value is None:
         return 'null'
     if type(value) is bool:
         return 'true' if value else 'false'
+    if value == t.ADDED:
+        return "+"
+    if value == t.DELETED:
+        return "-"
+    if value == t.UNCHANGED:
+        return " "
     else:
         return value
 
@@ -16,17 +21,6 @@ def get_spaces(depth):
     """returns the required number of spaces
      for indentation purpose"""
     return ' ' * (depth * 4 - 2)
-
-
-def get_state_representation(state):
-    """converts internal structure states
-    to the stylish representation"""
-    if state == t.ADDED:
-        return "+"
-    elif state == t.DELETED:
-        return "-"
-    elif state == t.UNCHANGED:
-        return " "
 
 
 def get_stylished_dict(node, nesting_level):
@@ -47,22 +41,6 @@ def get_stylished_dict(node, nesting_level):
     return dict_text
 
 
-def render_value(key, value, nesting_level, state):
-    diff = ""
-    spaces = get_spaces(nesting_level)
-    state = get_state_representation(state)
-
-    diff += f'\n{spaces}{state} {key}:'
-    # check whether the value is dict or not
-    if type(value) is dict:
-        diff += f' {{{get_stylished_dict(value, nesting_level + 1)}'
-        diff += f'\n{spaces}  }}'
-    else:
-        diff += f' {format_value(value)}'
-
-    return diff
-
-
 def get_element_render(node, nesting_level):
 
     diff = ""
@@ -75,28 +53,36 @@ def get_element_render(node, nesting_level):
         diff += f'\n{spaces}  }}'
     else:
         if node[t.STATE] == t.CHANGED:  # there will be 2 lines
+            # DELETED
+            diff += f'\n{spaces}{format_value(t.DELETED)} {node[t.KEY]}:'
+            if type(node[t.VALUE_LEFT]) is dict:
+                diff += f' {{{get_stylished_dict(node[t.VALUE_LEFT], nesting_level + 1)}'
+                diff += f'\n{spaces}  }}'
+            else:
+                diff += f' {format_value(node[t.VALUE_LEFT])}'
 
-            diff += render_value(node[t.KEY],
-                                 node[t.VALUE_LEFT],
-                                 nesting_level,
-                                 state=t.DELETED)
+            # ...and ADDED
+            diff += f'\n{spaces}{format_value(t.ADDED)} {node[t.KEY]}:'
+            if type(node[t.VALUE_RIGHT]) is dict:
+                diff += f' {{{get_stylished_dict(node[t.VALUE_RIGHT], nesting_level + 1)}'
+                diff += f'\n{spaces}  }}'
+            else:
+                diff += f' {format_value(node[t.VALUE_RIGHT])}'
 
-            diff += render_value(node[t.KEY],
-                                 node[t.VALUE_RIGHT],
-                                 nesting_level,
-                                 state=t.ADDED)
         else:
 
-            diff += render_value(node[t.KEY],
-                                 node[t.VALUE],
-                                 nesting_level,
-                                 state=node[t.STATE])
+            diff += f'\n{spaces}{format_value(node[t.STATE])} {node[t.KEY]}:'
+            if type(node[t.VALUE]) is dict:
+                diff += f' {{{get_stylished_dict(node[t.VALUE], nesting_level + 1)}'
+                diff += f'\n{spaces}  }}'
+            else:
+                diff += f' {format_value(node[t.VALUE])}'
 
     return diff
 
 
 def handle_list(data, nesting_level):
-    """Handles the list from the internal tree structure
+    """Handles the list from the internal tree structure.
     the data may come from a ROOT node on its first run
     whether from a node with a "CHILDREN" state"""
 
@@ -104,7 +90,7 @@ def handle_list(data, nesting_level):
         diff = ""
         for element in data:
             diff += get_element_render(element, nesting_level)
-    else:
+    else:  # being called on the first iteration
         root_node = data.get('ROOT')
         diff = "{"
         diff += handle_list(root_node, nesting_level)
