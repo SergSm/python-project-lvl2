@@ -13,7 +13,8 @@ def format_value(value):
         return 'true' if value else 'false'
     if type(value) is str:
         return f'\'{value}\''
-    if type(value) is dict:
+    if type(value) is dict \
+       or type(value) is list:
         return '[complex value]'
     else:
         return value

@@ -3,7 +3,6 @@ from gendiff import tree_description as t
 
 
 def build_dif(dict1, dict2):
-
     result = []
 
     # convert to set to have only unique values
@@ -18,30 +17,30 @@ def build_dif(dict1, dict2):
         # key uniqueness checks
         if key not in dict1:  # new key
             node = {t.KEY: key,
-                   t.VALUE: dict2[key],
-                   t.STATE: t.ADDED}
+                    t.VALUE: dict2[key],
+                    t.STATE: t.ADDED}
         elif key not in dict2:  # deleted key
             node = {t.KEY: key,
-                   t.VALUE: dict1[key],
-                   t.STATE: t.DELETED}
+                    t.VALUE: dict1[key],
+                    t.STATE: t.DELETED}
         # same keys values checks
         elif dict1[key] == dict2[key]:
             node = {t.KEY: key,
-                   t.VALUE: dict1[key],
-                   t.STATE: t.UNCHANGED
-                   }
-        elif type(dict1[key]) is dict\
+                    t.VALUE: dict1[key],
+                    t.STATE: t.UNCHANGED
+                    }
+        elif type(dict1[key]) is dict \
                 and type(dict2[key]) is dict:  # both dictionaries
             node = {t.KEY: key,
-                   t.VALUE: build_dif(dict1[key], dict2[key]),
-                   t.STATE: t.CHILDREN,
-                   }
+                    t.VALUE: build_dif(dict1[key], dict2[key]),
+                    t.STATE: t.CHILDREN,
+                    }
         else:  # means dict1[key] != dict2[key]
             node = {t.KEY: key,
-                   t.VALUE_LEFT: dict1[key],
-                   t.VALUE_RIGHT: dict2[key],
-                   t.STATE: t.CHANGED
-                   }
+                    t.VALUE_LEFT: dict1[key],
+                    t.VALUE_RIGHT: dict2[key],
+                    t.STATE: t.CHANGED
+                    }
 
         result.append(node)
 
