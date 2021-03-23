@@ -36,14 +36,12 @@ def build_dif(dict1, dict2):
                    t.VALUE: build_dif(dict1[key], dict2[key]),
                    t.STATE: t.CHILDREN,
                    }
-        elif dict1[key] != dict2[key]:
+        else:  # means dict1[key] != dict2[key]
             row = {t.KEY: key,
                    t.VALUE_LEFT: dict1[key],
                    t.VALUE_RIGHT: dict2[key],
                    t.STATE: t.CHANGED
                    }
-        else:
-            raise Exception("Impossible situation while comparing 2 files")
 
         result.append(row)
 
