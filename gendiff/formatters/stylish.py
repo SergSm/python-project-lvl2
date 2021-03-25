@@ -2,7 +2,7 @@
 from gendiff import tree_description as t
 
 
-def format_value(value):
+def format_value(value, nesting_level=0):
     if value is None:
         return 'null'
     if type(value) is bool:
@@ -13,6 +13,22 @@ def format_value(value):
         return "-"
     if value == t.UNCHANGED:
         return " "
+    if type(value) is dict:
+        dict_text = ""
+        spaces = get_spaces(nesting_level)
+
+        for key, val in value.items():
+
+            if type(val) is dict:
+                dict_value = format_value(val,
+                                          nesting_level + 1)
+                dict_text += f'\n{spaces}  {key}: {{{dict_value}'
+                dict_text += f'\n{spaces}  }}'
+            else:
+                dict_text += f'\n{spaces}  {key}: {val}'
+
+        return dict_text
+
     else:
         return value
 
@@ -21,24 +37,6 @@ def get_spaces(depth):
     """returns the required number of spaces
      for indentation purpose"""
     return ' ' * (depth * 4 - 2)
-
-
-def get_stylished_dict(node, nesting_level):
-    """pretty formats the dictionary according to
-    its indentation level"""
-    dict_text = ""
-    spaces = get_spaces(nesting_level)
-
-    for key, val in node.items():
-
-        if type(val) is dict:
-            dict_value = get_stylished_dict(val, nesting_level + 1)
-            dict_text += f'\n{spaces}  {key}: {{{dict_value}'
-            dict_text += f'\n{spaces}  }}'
-        else:
-            dict_text += f'\n{spaces}  {key}: {val}'
-
-    return dict_text
 
 
 def get_element_render(node, nesting_level):
@@ -56,8 +54,8 @@ def get_element_render(node, nesting_level):
             # DELETED
             diff += f'\n{spaces}{format_value(t.DELETED)} {node[t.KEY]}:'
             if type(node[t.VALUE_LEFT]) is dict:
-                formatted_dict = get_stylished_dict(node[t.VALUE_LEFT],
-                                                    nesting_level + 1)
+                formatted_dict = format_value(node[t.VALUE_LEFT],
+                                              nesting_level + 1)
                 diff += f' {{{formatted_dict}'
                 diff += f'\n{spaces}  }}'
             else:
@@ -66,8 +64,8 @@ def get_element_render(node, nesting_level):
             # ...and ADDED
             diff += f'\n{spaces}{format_value(t.ADDED)} {node[t.KEY]}:'
             if type(node[t.VALUE_RIGHT]) is dict:
-                formatted_dict = get_stylished_dict(node[t.VALUE_RIGHT],
-                                                    nesting_level + 1)
+                formatted_dict = format_value(node[t.VALUE_RIGHT],
+                                              nesting_level + 1)
                 diff += f' {{{formatted_dict}'
                 diff += f'\n{spaces}  }}'
             else:
@@ -77,8 +75,8 @@ def get_element_render(node, nesting_level):
 
             diff += f'\n{spaces}{format_value(node[t.STATE])} {node[t.KEY]}:'
             if type(node[t.VALUE]) is dict:
-                formatted_dict = get_stylished_dict(node[t.VALUE],
-                                                    nesting_level + 1)
+                formatted_dict = format_value(node[t.VALUE],
+                                              nesting_level + 1)
                 diff += f' {{{formatted_dict}'
                 diff += f'\n{spaces}  }}'
             else:
