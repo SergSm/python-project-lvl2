@@ -24,8 +24,8 @@ def get_children(node, parent=""):
 
     info_string = ""
     if node[t.STATE] == t.CHILDREN:
-        list_diff = handle_list(node[t.VALUE],
-                                f'{build_path(parent)}{node[t.KEY]}')
+        list_diff = handle_children(node[t.VALUE],
+                                    f'{build_path(parent)}{node[t.KEY]}')
         info_string += f"{list_diff}"
     elif node[t.STATE] == t.ADDED:
         info_string += f"\nProperty \'{build_path(parent)}{node[t.KEY]}\' " \
@@ -45,7 +45,7 @@ def get_children(node, parent=""):
     return info_string
 
 
-def handle_list(data, parent=""):  # TODO rename
+def handle_children(data, parent=""):  # TODO rename
 
     diff = ""
     for element in data:
@@ -55,9 +55,9 @@ def handle_list(data, parent=""):  # TODO rename
 
 
 def get_render_plain(data):
-    root_node = data.get('VALUE')
+    root_children = data.get('VALUE')
 
-    diff = handle_list(root_node)
+    diff = handle_children(root_children)
     diff = diff[1:]  # removes the first new string character
 
     return diff
