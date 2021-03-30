@@ -45,7 +45,7 @@ def get_children(node, parent=""):
     return info_string
 
 
-def handle_children(data, parent=""):  # TODO rename
+def handle_children(data, parent=""):
 
     diff = ""
     for element in data:

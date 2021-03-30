@@ -49,7 +49,19 @@ def get_element_render(node, nesting_level):
         diff += f'\n{spaces}  {node[t.KEY]}: {{' \
                 f'{list_diff}'
         diff += f'\n{spaces}  }}'
-    else:
+    elif node[t.STATE] == t.ADDED:
+################################################################################
+        diff += f'\n{spaces}{t.ADDED} {node[t.KEY]}:'
+
+        if type(node[t.VALUE]) is dict:
+            formatted_dict = format_value(node[t.VALUE],
+                                          nesting_level + 1)
+            diff += f' {{{formatted_dict}'
+            diff += f'\n{spaces}  }}'
+        else:
+            diff += f' {format_value(node[t.VALUE])}'
+################################################################################
+
         if node[t.STATE] == t.CHANGED:  # there will be 2 lines
             # DELETED
             diff += f'\n{spaces}{format_value(t.DELETED)} {node[t.KEY]}:'
