@@ -45,7 +45,7 @@ def get_children(node, parent=""):
     return info_string
 
 
-def handle_list(data, parent=""):
+def handle_list(data, parent=""):  # TODO rename
 
     diff = ""
     for element in data:
@@ -55,7 +55,7 @@ def handle_list(data, parent=""):
 
 
 def get_render_plain(data):
-    root_node = data.get('ROOT')
+    root_node = data.get('VALUE')
 
     diff = handle_list(root_node)
     diff = diff[1:]  # removes the first new string character

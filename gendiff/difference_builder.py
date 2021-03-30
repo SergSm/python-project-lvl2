@@ -49,4 +49,8 @@ def build_dif(dict1, dict2):
 
 def get_difference(dict1, dict2):
     """Return the difference between 2 dicts"""
-    return {'ROOT': build_dif(dict1, dict2)}
+    return {
+        t.KEY: 'ROOT',
+        t.VALUE: build_dif(dict1, dict2),
+        t.STATE: t.CHILDREN,
+    }

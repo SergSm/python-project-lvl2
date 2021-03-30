@@ -1,5 +1,6 @@
 {
-  "ROOT": [
+  "KEY": "ROOT",
+  "VALUE": [
     {
       "KEY": "common",
       "VALUE": [
@@ -173,5 +174,6 @@
       ],
       "STATE": "CHILDREN"
     }
-  ]
+  ],
+  "STATE": "CHILDREN"
 }
