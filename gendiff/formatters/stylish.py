@@ -103,6 +103,5 @@ def handle_list(data, nesting_level):
     return diff
 
 
-def get_render_stylish(data):
-    diff = handle_list(data, nesting_level=1)
-    return diff
+def get_render_stylish(diff):
+    return handle_list(diff, nesting_level=1)
