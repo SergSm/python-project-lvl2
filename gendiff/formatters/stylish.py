@@ -9,7 +9,7 @@ def format_value(value, nesting_level=0):
         return 'true' if value else 'false'
     if type(value) is dict:
 
-        dict_text = '{{'
+        dict_text = '{'
 
         for key, val in value.items():
 

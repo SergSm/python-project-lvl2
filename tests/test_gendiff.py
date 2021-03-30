@@ -18,6 +18,7 @@ def get_file(path_to_file):
 input_formats = ['json', 'yml']
 output_formatters = ['stylish', 'plain', 'json']
 
+
 input_cases = []
 for input_format in input_formats:
     for output_format in output_formatters:
