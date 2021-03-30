@@ -95,7 +95,6 @@ def handle_list(data, nesting_level):
         for element in data:
             diff += get_element_render(element, nesting_level)
     else:  # being called on the first iteration
-        #root_node = data.get('ROOT')
         if data.get("KEY") == "ROOT":
             diff = "{"
             diff += handle_list(data.get("VALUE"), nesting_level)
