@@ -7,25 +7,20 @@ def format_value(value, nesting_level=0):
         return 'null'
     if type(value) is bool:
         return 'true' if value else 'false'
-    if value == t.ADDED:
-        return "+"
-    if value == t.DELETED:
-        return "-"
-    if value == t.UNCHANGED:
-        return " "
     if type(value) is dict:
-        dict_text = ""
-        spaces = get_spaces(nesting_level)
+
+        dict_text = f'{{'
 
         for key, val in value.items():
 
-            if type(val) is dict:
-                dict_value = format_value(val,
-                                          nesting_level + 1)
-                dict_text += f'\n{spaces}  {key}: {{{dict_value}'
-                dict_text += f'\n{spaces}  }}'
+            spaces = get_spaces(nesting_level + 1)
+            if type(val) is dict:  # for the dictionaries
+                dict_text += f'\n{spaces}  {key}: ' \
+                             f'{format_value(val, nesting_level + 1)}'
             else:
                 dict_text += f'\n{spaces}  {key}: {val}'
+
+        dict_text += f'\n{get_spaces(nesting_level)}  }}'
 
         return dict_text
 
@@ -50,49 +45,21 @@ def get_element_render(node, nesting_level):
                 f'{list_diff}'
         diff += f'\n{spaces}  }}'
     elif node[t.STATE] == t.ADDED:
-################################################################################
-        diff += f'\n{spaces}{t.ADDED} {node[t.KEY]}:'
-
-        if type(node[t.VALUE]) is dict:
-            formatted_dict = format_value(node[t.VALUE],
-                                          nesting_level + 1)
-            diff += f' {{{formatted_dict}'
-            diff += f'\n{spaces}  }}'
-        else:
-            diff += f' {format_value(node[t.VALUE])}'
-################################################################################
-
-        if node[t.STATE] == t.CHANGED:  # there will be 2 lines
-            # DELETED
-            diff += f'\n{spaces}{format_value(t.DELETED)} {node[t.KEY]}:'
-            if type(node[t.VALUE_LEFT]) is dict:
-                formatted_dict = format_value(node[t.VALUE_LEFT],
-                                              nesting_level + 1)
-                diff += f' {{{formatted_dict}'
-                diff += f'\n{spaces}  }}'
-            else:
-                diff += f' {format_value(node[t.VALUE_LEFT])}'
-
-            # ...and ADDED
-            diff += f'\n{spaces}{format_value(t.ADDED)} {node[t.KEY]}:'
-            if type(node[t.VALUE_RIGHT]) is dict:
-                formatted_dict = format_value(node[t.VALUE_RIGHT],
-                                              nesting_level + 1)
-                diff += f' {{{formatted_dict}'
-                diff += f'\n{spaces}  }}'
-            else:
-                diff += f' {format_value(node[t.VALUE_RIGHT])}'
-
-        else:
-
-            diff += f'\n{spaces}{format_value(node[t.STATE])} {node[t.KEY]}:'
-            if type(node[t.VALUE]) is dict:
-                formatted_dict = format_value(node[t.VALUE],
-                                              nesting_level + 1)
-                diff += f' {{{formatted_dict}'
-                diff += f'\n{spaces}  }}'
-            else:
-                diff += f' {format_value(node[t.VALUE])}'
+        diff += f'\n{spaces}+ {node[t.KEY]}:'
+        diff += f' {format_value(node[t.VALUE], nesting_level)}'
+    elif node[t.STATE] == t.DELETED:
+        diff += f'\n{spaces}- {node[t.KEY]}:'
+        diff += f' {format_value(node[t.VALUE], nesting_level)}'
+    elif node[t.STATE] == t.CHANGED:  # there will be 2 lines
+        # DELETED -
+        diff += f'\n{spaces}- {node[t.KEY]}:'
+        diff += f' {format_value(node[t.VALUE_LEFT], nesting_level)}'
+        # ADDED +
+        diff += f'\n{spaces}+ {node[t.KEY]}:'
+        diff += f' {format_value(node[t.VALUE_RIGHT], nesting_level)}'
+    else:  # UNCHANGED
+        diff += f'\n{spaces}  {node[t.KEY]}:'
+        diff += f' {format_value(node[t.VALUE], nesting_level)}'
 
     return diff
 
