@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "hexlet-code"
+name = "SergSm_hexlet-code"
 version = "0.3.0"
 description = "Compare 2 files"
 authors = ["SergSm <smirnovserg.s@gmail.com>"]
