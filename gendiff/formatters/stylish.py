@@ -9,12 +9,12 @@ def format_value(value, nesting_level=0):
         return 'true' if value else 'false'
     if type(value) is dict:
 
-        dict_text = '{{'
+        dict_text = '{'
 
         for key, val in value.items():
 
             spaces = get_spaces(nesting_level + 1)
-            if type(val) is dict:  # for the dictionaries
+            if type(val) is dict:
                 dict_text += f'\n{spaces}  {key}: ' \
                              f'{format_value(val, nesting_level + 1)}'
             else:

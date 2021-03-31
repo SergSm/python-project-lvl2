@@ -39,18 +39,5 @@ optional arguments:
 You may execute 
 ```make lint``` to run flake8
 
-## Examples
-*Comparing 2 flat json files*
-[![asciicast](https://asciinema.org/a/TpKjgjmx5NfNXnV7s1FI0QlPa.svg)](https://asciinema.org/a/TpKjgjmx5NfNXnV7s1FI0QlPa)
-
-*Comparing 2 flat yml files*
-[![asciicast](https://asciinema.org/a/F3bMdupptoxWZdxc9p4lmjSoH.svg)](https://asciinema.org/a/F3bMdupptoxWZdxc9p4lmjSoH)
-
-*Using a 'stylish' difference output formatter*
-[![asciicast](https://asciinema.org/a/geIN8kPY39KZN3fPuQuPp7D5s.svg)](https://asciinema.org/a/geIN8kPY39KZN3fPuQuPp7D5s)
-
-*Using a 'plain' difference output formatter*
-[![asciicast](https://asciinema.org/a/Q4PaBwgvIDvp3qoiHeL9fxTqm.svg)](https://asciinema.org/a/Q4PaBwgvIDvp3qoiHeL9fxTqm)
-
-*Using a 'json' difference output formatter*
-[![asciicast](https://asciinema.org/a/VIzrLiqOsVgwpzPIVkqljo8AP.svg)](https://asciinema.org/a/VIzrLiqOsVgwpzPIVkqljo8AP)
+## Example of installation and using the library
+[![asciicast](https://asciinema.org/a/gUKcIJS8EPrfAqIWdM6Zbt7BV.svg)](https://asciinema.org/a/gUKcIJS8EPrfAqIWdM6Zbt7BV)
