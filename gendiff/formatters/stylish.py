@@ -57,9 +57,19 @@ def get_element_render(node, nesting_level):
         # ADDED +
         diff += f'\n{spaces}+ {node[t.KEY]}:'
         diff += f' {format_value(node[t.VALUE_RIGHT], nesting_level)}'
-    else:  # UNCHANGED
+    elif node[t.STATE] == t.UNCHANGED:
         diff += f'\n{spaces}  {node[t.KEY]}:'
         diff += f' {format_value(node[t.VALUE], nesting_level)}'
+
+    elif node[t.STATE] == t.ROOT:
+        diff = "{"
+        for element in node:
+            diff += get_element_render(element, nesting_level)
+        diff += handle_list(node.get("VALUE"), nesting_level)
+        diff += "\n}"
+
+    else:
+        raise ValueError("Unknown node type")
 
     return diff
 
